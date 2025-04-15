@@ -1,6 +1,7 @@
 package com.evervc.datacloudsv.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,12 +19,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.evervc.datacloudsv.R;
+import com.evervc.datacloudsv.models.AccountRegister;
+import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
 import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
+import com.evervc.datacloudsv.ui.utils.IAccountRegisterListener;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class NewRegisterActivity extends AppCompatActivity {
-    private EditText etTitleNewRegister, etAccountNewRegister, etUsernameNewRegister, etPasswordNewRegister,
-            etWebSiteNewRegister, etNotesNewRegister;
+    private EditText etTitleNewRegister, etAccountNewRegister, etUsernameNewRegister, etPasswordNewRegister, etWebSiteNewRegister, etNotesNewRegister;
     private MaterialToolbar toolbar;
 
     @Override
@@ -83,6 +86,27 @@ public class NewRegisterActivity extends AppCompatActivity {
     }
 
     public void addRegister(View view) {
-        Toast.makeText(this, "Se ha guardado el registro...", Toast.LENGTH_SHORT).show();
+        String title = etTitleNewRegister.getText().toString().trim();
+        String accountInput = etAccountNewRegister.getText().toString().trim();
+        String username = etUsernameNewRegister.getText().toString().trim();
+        String password = etPasswordNewRegister.getText().toString().trim();
+        String websiteInput = etWebSiteNewRegister.getText().toString().trim();
+        String notesInput = etNotesNewRegister.getText().toString().trim();
+
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Asegúrese de haber llenado los campos que tienen un [*]", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Asigna null si los campos opcionales están vacíos
+        String account = TextUtils.isEmpty(accountInput) ? null : accountInput;
+        String website = TextUtils.isEmpty(websiteInput) ? null : websiteInput;
+        String notes = TextUtils.isEmpty(notesInput) ? null : notesInput;
+
+        AccountRegister accountRegister = new AccountRegister(title, account, username, password, website, notes);
+
+        // Aquí deberías guardar el objeto con Room (no mostrado)
+        AccountRegisterControllerDB.insertAccountRegister(this, accountRegister);
     }
+
 }

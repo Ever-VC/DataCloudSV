@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,20 +23,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AccountRegisterControllerDB {
-    public void insertAccountRegister(AppCompatActivity activity, AccountRegister accountRegister, IAccountRegisterListener listener) {
+    public static void insertAccountRegister(AppCompatActivity activity, AccountRegister accountRegister) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             AccountRegistersDB db = AccountRegistersDB.getInstance(activity.getApplicationContext());
             Long resultado = db.accountRegisterDAO().insertNewRegister(accountRegister);
 
             if (resultado > 0) {
-                listener.onChangeAccountRegistersList();
+                activity.setResult(activity.RESULT_OK);
                 activity.finish();
             }
         });
     }
 
-    public void updateAccountRegister(AppCompatActivity activity, AccountRegister accountRegister, IAccountRegisterListener listener) {
+    public static void updateAccountRegister(AppCompatActivity activity, AccountRegister accountRegister, IAccountRegisterListener listener) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             AccountRegistersDB db = AccountRegistersDB.getInstance(activity.getApplicationContext());
@@ -47,7 +49,7 @@ public class AccountRegisterControllerDB {
         });
     }
 
-    public void deleteAccountRegister(AccountRegister accountRegister, Context context, IAccountRegisterListener listener) {
+    public static void deleteAccountRegister(AccountRegister accountRegister, Context context, IAccountRegisterListener listener) {
         AlertDialog.Builder mensajeDeConfirmacion = new AlertDialog.Builder(context);
         mensajeDeConfirmacion.setTitle("¿Está seguro que desea eliminar el registro?");
         mensajeDeConfirmacion.setMessage("Esta acción no puede revertirse, por lo tanto los cambios serán permanentes.");
@@ -66,7 +68,7 @@ public class AccountRegisterControllerDB {
         }).setNegativeButton("No", null).show();
     }
 
-    public void showAccountRegisters(RecyclerView rcvAccountRegisters, Context context, IAccountRegisterListener listener, FragmentManager fragmentManager) {
+    public static void showAccountRegisters(RecyclerView rcvAccountRegisters, TextView tvInformationMessage, Context context, IAccountRegisterListener listener) {
         Handler handler = new Handler(Looper.getMainLooper());
 
         // Obteniendo los valores insertados
@@ -75,6 +77,13 @@ public class AccountRegisterControllerDB {
             AccountRegistersDB db = AccountRegistersDB.getInstance(context);
             List<AccountRegister> lstAccountRegisters = db.accountRegisterDAO().getAllAccountRegisters();
             handler.post(() -> {
+
+                if (!lstAccountRegisters.isEmpty()) {
+                    tvInformationMessage.setVisibility(View.GONE);
+                } else {
+                    tvInformationMessage.setVisibility(View.VISIBLE);
+                }
+
                 AccountRegisterAdapter accountRegisterAdapter = new AccountRegisterAdapter(lstAccountRegisters, context, listener);
                 rcvAccountRegisters.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false));
                 rcvAccountRegisters.setAdapter(accountRegisterAdapter);

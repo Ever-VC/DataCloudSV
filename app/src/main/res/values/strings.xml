@@ -6,10 +6,10 @@
     <string name="fabAddRegister">Agregar</string>
 
     <!-- Add register desing   -->
-    <string name="etTitle">Título</string>
+    <string name="etTitle">Título *</string>
     <string name="etAcount">Correo</string>
-    <string name="etUsername">Nombre de usuario</string>
-    <string name="etPassword">Contraseña</string>
+    <string name="etUsername">Nombre de usuario *</string>
+    <string name="etPassword">Contraseña *</string>
     <string name="etWebSite">Sitio web</string>
     <string name="etNote">Nota</string>
 

@@ -57,7 +57,7 @@
                 android:layout_marginTop="20dp">
                 <!-- Acount input -->
                 <EditText
-                    android:id="@+id/etAcountNewRegister"
+                    android:id="@+id/etAccountNewRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/etAcount"

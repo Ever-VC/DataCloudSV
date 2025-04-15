@@ -22,7 +22,7 @@ import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class NewRegisterActivity extends AppCompatActivity {
-    private EditText etTitleNewRegister, etAcountNewRegister, etUsernameNewRegister, etPasswordNewRegister,
+    private EditText etTitleNewRegister, etAccountNewRegister, etUsernameNewRegister, etPasswordNewRegister,
             etWebSiteNewRegister, etNotesNewRegister;
     private MaterialToolbar toolbar;
 
@@ -55,7 +55,7 @@ public class NewRegisterActivity extends AppCompatActivity {
 
     private void bindElementsXml() {
         etTitleNewRegister = findViewById(R.id.etTitleNewRegister);
-        etAcountNewRegister = findViewById(R.id.etAcountNewRegister);
+        etAccountNewRegister = findViewById(R.id.etAccountNewRegister);
         etUsernameNewRegister = findViewById(R.id.etUsernameNewRegister);
         etPasswordNewRegister = findViewById(R.id.etPasswordNewRegister);
         etWebSiteNewRegister = findViewById(R.id.etWebSiteNewRegister);

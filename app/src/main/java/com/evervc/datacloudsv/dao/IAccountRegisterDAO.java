@@ -6,18 +6,18 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.evervc.datacloudsv.models.RegisterAccount;
+import com.evervc.datacloudsv.models.AccountRegister;
 
 import java.util.List;
 
 @Dao
 public interface IAccountRegisterDAO {
     @Insert
-    Long insertNewRegister(RegisterAccount registerAcount);
+    Long insertNewRegister(AccountRegister registerAcount);
     @Update
-    int updateRegister(RegisterAccount registerAcount);
+    int updateRegister(AccountRegister registerAcount);
     @Delete
-    int deleteRegister(RegisterAccount registerAcount);
-    @Query("SELECT * FROM RegisterAccount")
-    List<RegisterAccount> getAllAccountRegisters();
+    int deleteRegister(AccountRegister registerAcount);
+    @Query("SELECT * FROM AccountRegister")
+    List<AccountRegister> getAllAccountRegisters();
 }

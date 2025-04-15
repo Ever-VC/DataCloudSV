@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class RegisterAccount {
+public class AccountRegister {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo
@@ -21,7 +21,7 @@ public class RegisterAccount {
     @ColumnInfo
     private String notes;
 
-    public RegisterAccount(String title, String acount, String username, String password, String website, String notes) {
+    public AccountRegister(String title, String acount, String username, String password, String website, String notes) {
         this.title = title;
         this.acount = acount;
         this.username = username;
@@ -30,7 +30,7 @@ public class RegisterAccount {
         this.notes = notes;
     }
 
-    public RegisterAccount() {
+    public AccountRegister() {
     }
 
     public int getId() {

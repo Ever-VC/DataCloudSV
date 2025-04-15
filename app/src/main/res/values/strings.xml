@@ -4,5 +4,17 @@
 
     <!-- Floatin Action Button    -->
     <string name="fabAddRegister">Agregar</string>
+
+    <!-- Add register desing   -->
+    <string name="etTitle">Título</string>
+    <string name="etAcount">Correo</string>
+    <string name="etUsername">Nombre de usuario</string>
+    <string name="etPassword">Contraseña</string>
+    <string name="etWebSite">Sitio web</string>
+    <string name="etNote">Nota</string>
+
+    <!-- Top menu save new register -->
+    <string name="saveRegister">Gurardar</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Data Cloud SV</string>
     <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- Floatin Action Button    -->
+    <string name="fabAddRegister">Agregar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

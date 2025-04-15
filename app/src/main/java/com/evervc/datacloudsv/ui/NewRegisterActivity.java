@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,8 +21,7 @@ import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class NewRegisterActivity extends AppCompatActivity {
-
-    MaterialToolbar toolbar;
+    private MaterialToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +47,13 @@ public class NewRegisterActivity extends AppCompatActivity {
         ActivityTransitionUtil.applyBackTransition(this);
 
     }
-
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.save_register_menu, menu);
         return super.onCreateOptionsMenu(menu);
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -60,11 +61,14 @@ public class NewRegisterActivity extends AppCompatActivity {
             finish(); // Cierra la actividad
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             return true;
-        } else if (item.getItemId() == R.id.btnSaveRegister) {
+        } /*else if (item.getItemId() == R.id.btnSaveRegister) {
             Toast.makeText(this, "Se ha guardado el registro...", Toast.LENGTH_SHORT).show();
             return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
+    public void addRegister(View view) {
+        Toast.makeText(this, "Se ha guardado el registro...", Toast.LENGTH_SHORT).show();
+    }
 }

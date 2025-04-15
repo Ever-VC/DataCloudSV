@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.evervc.datacloudsv.R;
+import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class NewRegisterActivity extends AppCompatActivity {
@@ -38,8 +39,11 @@ public class NewRegisterActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("Agregar registro");
+            actionBar.setTitle("Nuevo Registro");
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        ActivityTransitionUtil.applyBackTransition(this);
 
     }
 
@@ -52,9 +56,15 @@ public class NewRegisterActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.btnSaveRegister) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Cierra la actividad
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            return true;
+        } else if (item.getItemId() == R.id.btnSaveRegister) {
             Toast.makeText(this, "Se ha guardado el registro...", Toast.LENGTH_SHORT).show();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

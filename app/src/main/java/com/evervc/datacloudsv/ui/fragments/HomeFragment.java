@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.evervc.datacloudsv.R;
 import com.evervc.datacloudsv.ui.NewRegisterActivity;
+import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeFragment extends Fragment {
@@ -44,6 +45,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 // Show activity for create a new register
                 startActivity(new Intent(getContext(), NewRegisterActivity.class));
+                //requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                ActivityTransitionUtil.applyEnterTransition(requireActivity());
             }
         });
 

@@ -15,7 +15,7 @@
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="button_primary">
-        <item name="backgroundTint">@color/teal</item>
+        <item name="backgroundTint">@color/light_blue</item>
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="button_transparent">

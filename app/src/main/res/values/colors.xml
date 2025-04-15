@@ -10,4 +10,9 @@
     <color name="blue">#03A9F4</color>
     <color name="dark_blue">#3F51B5</color>
     <color name="red">#FF0000</color>
+    <!-- Background color Toolbar save new register  -->
+    <color name="toolbar_bg">@color/teal</color>
+    <color name="toolbar_text_color">@color/white</color>
+    <color name="toolbar_icon_tint">@color/white</color>
+
 </resources>

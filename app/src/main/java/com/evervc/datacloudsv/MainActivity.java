@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             // Inicia HomeActivity una vez completado el progreso
             Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(homeActivity);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         }).start();
     }

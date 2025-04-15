@@ -6,6 +6,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +22,8 @@ import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class NewRegisterActivity extends AppCompatActivity {
+    private EditText etTitleNewRegister, etAcountNewRegister, etUsernameNewRegister, etPasswordNewRegister,
+            etWebSiteNewRegister, etNotesNewRegister;
     private MaterialToolbar toolbar;
 
     @Override
@@ -46,6 +49,17 @@ public class NewRegisterActivity extends AppCompatActivity {
 
         ActivityTransitionUtil.applyBackTransition(this);
 
+        bindElementsXml();
+
+    }
+
+    private void bindElementsXml() {
+        etTitleNewRegister = findViewById(R.id.etTitleNewRegister);
+        etAcountNewRegister = findViewById(R.id.etAcountNewRegister);
+        etUsernameNewRegister = findViewById(R.id.etUsernameNewRegister);
+        etPasswordNewRegister = findViewById(R.id.etPasswordNewRegister);
+        etWebSiteNewRegister = findViewById(R.id.etWebSiteNewRegister);
+        etNotesNewRegister = findViewById(R.id.etNotesNewRegister);
     }
     /*
     @Override

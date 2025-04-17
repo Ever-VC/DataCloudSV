@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.evervc.datacloudsv.R;
@@ -44,6 +46,12 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
         holder.tvTitle.setText(accountRegister.getTitle());
         holder.tvUsername.setText(accountRegister.getUsername());
         holder.imgItem.setImageResource(R.drawable.encrypted);
+        holder.cvRegisterItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Se ha seleccionado el item [" + accountRegister.getTitle() + "]", Toast.LENGTH_SHORT).show();
+            }
+        });
         /*holder.btnDeleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,10 +69,12 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
         private TextView tvTitle, tvUsername;
         //private ImageButton btnDeleteItem, btnEditItem;
         private ImageView imgItem;
+        private CardView cvRegisterItem;
         public AccountRegisterViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvUsername = itemView.findViewById(R.id.tvUsername);
+            cvRegisterItem = itemView.findViewById(R.id.cvRegisterItem);
 //            btnDeleteItem = itemView.findViewById(R.id.btnDeleteItem);
 //            btnEditItem = itemView.findViewById(R.id.btnEditItem);
             imgItem = itemView.findViewById(R.id.imgItem);

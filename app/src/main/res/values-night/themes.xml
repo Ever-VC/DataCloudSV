@@ -20,6 +20,9 @@
         <item name="backgroundTint">@color/light_gray</item>
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="image_button_transparent">
+        <item name="android:backgroundTint">@color/transparent</item>
+    </style>
     <style name="tvTitle">
         <item name="android:textSize">24dp</item>
         <item name="android:textStyle">bold</item>

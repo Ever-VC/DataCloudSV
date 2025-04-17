@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="bg_screen">#131217</color>
+    <color name="img_icon_profile">@color/light_gray</color>
     <!-- Background color Toolbar save new register  -->
     <color name="toolbar_bg">@color/light_blue</color>
     <color name="toolbar_text_color">@color/white</color>

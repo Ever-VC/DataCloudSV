@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.evervc.datacloudsv.R;
 import com.evervc.datacloudsv.database.AccountRegistersDB;
 import com.evervc.datacloudsv.models.AccountRegister;
+import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
 import com.evervc.datacloudsv.ui.utils.IAccountRegisterListener;
 
 import java.util.List;
@@ -41,12 +43,13 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
         AccountRegister accountRegister = lstAccountRegisters.get(position);
         holder.tvTitle.setText(accountRegister.getTitle());
         holder.tvUsername.setText(accountRegister.getUsername());
-        holder.btnDeleteItem.setOnClickListener(new View.OnClickListener() {
+        holder.imgItem.setImageResource(R.drawable.encrypted);
+        /*holder.btnDeleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                AccountRegisterControllerDB.deleteAccountRegister(accountRegister, context, listener);
             }
-        });
+        });*/
     }
 
     @Override
@@ -55,14 +58,16 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
     }
 
     public class AccountRegisterViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvUsername;
-        private ImageButton btnDeleteItem, btnEditItem;
+        private TextView tvTitle, tvUsername;
+        //private ImageButton btnDeleteItem, btnEditItem;
+        private ImageView imgItem;
         public AccountRegisterViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvUsername = itemView.findViewById(R.id.tvUsername);
-            btnDeleteItem = itemView.findViewById(R.id.btnDeleteItem);
-            btnEditItem = itemView.findViewById(R.id.btnEditItem);
+//            btnDeleteItem = itemView.findViewById(R.id.btnDeleteItem);
+//            btnEditItem = itemView.findViewById(R.id.btnEditItem);
+            imgItem = itemView.findViewById(R.id.imgItem);
         }
     }
 }

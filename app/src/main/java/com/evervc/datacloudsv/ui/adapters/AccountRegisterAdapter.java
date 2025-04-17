@@ -49,7 +49,7 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
         holder.cvRegisterItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Se ha seleccionado el item [" + accountRegister.getTitle() + "]", Toast.LENGTH_SHORT).show();
+                AccountRegisterControllerDB.deleteAccountRegister(accountRegister, context, listener);
             }
         });
         /*holder.btnDeleteItem.setOnClickListener(new View.OnClickListener() {

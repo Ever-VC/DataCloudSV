@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,15 +25,20 @@ import java.util.concurrent.Executors;
 
 public class AccountRegisterControllerDB {
     public static void insertAccountRegister(AppCompatActivity activity, AccountRegister accountRegister) {
+        Handler handler = new Handler(Looper.getMainLooper());
+
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             AccountRegistersDB db = AccountRegistersDB.getInstance(activity.getApplicationContext());
             Long resultado = db.accountRegisterDAO().insertNewRegister(accountRegister);
 
-            if (resultado > 0) {
-                activity.setResult(activity.RESULT_OK);
-                activity.finish();
-            }
+            handler.post(() -> {
+                if (resultado > 0) {
+                    Toast.makeText(activity.getApplicationContext(), "Registro agregado exitosamente.", Toast.LENGTH_SHORT).show();
+                    activity.setResult(activity.RESULT_OK);
+                    activity.finish();
+                }
+            });
         });
     }
 

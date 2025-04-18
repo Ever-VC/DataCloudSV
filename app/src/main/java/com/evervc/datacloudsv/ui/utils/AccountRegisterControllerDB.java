@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,7 +56,7 @@ public class AccountRegisterControllerDB {
         });
     }
 
-    public static void deleteAccountRegister(AccountRegister accountRegister, Context context, IAccountRegisterListener listener) {
+    public static void deleteAccountRegister(AccountRegister accountRegister, Context context, IAccountRegisterListener listener, DialogFragment dialogFragment) {
         AlertDialog.Builder mensajeDeConfirmacion = new AlertDialog.Builder(context);
         mensajeDeConfirmacion.setTitle("¿Está seguro que desea eliminar el registro?");
         mensajeDeConfirmacion.setMessage("Esta acción no puede revertirse, por lo tanto los cambios serán permanentes.");
@@ -68,13 +69,16 @@ public class AccountRegisterControllerDB {
                     int resultado = db.accountRegisterDAO().deleteRegister(accountRegister);
                     if (resultado > 0) {
                         listener.onChangeAccountRegistersList();
+                        dialogFragment.dismiss();
                     }
                 });
             }
         }).setNegativeButton("No", null).show();
     }
 
-    public static void showAccountRegisters(RecyclerView rcvAccountRegisters, TextView tvInformationMessage, Context context, IAccountRegisterListener listener) {
+
+
+    public static void showAccountRegisters(RecyclerView rcvAccountRegisters, TextView tvInformationMessage, Context context, FragmentManager fragmentManager, IAccountRegisterListener listener) {
         Handler handler = new Handler(Looper.getMainLooper());
 
         // Obteniendo los valores insertados
@@ -90,7 +94,7 @@ public class AccountRegisterControllerDB {
                     tvInformationMessage.setVisibility(View.VISIBLE);
                 }
 
-                AccountRegisterAdapter accountRegisterAdapter = new AccountRegisterAdapter(lstAccountRegisters, context, listener);
+                AccountRegisterAdapter accountRegisterAdapter = new AccountRegisterAdapter(lstAccountRegisters, context, listener, fragmentManager);
                 rcvAccountRegisters.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false));
                 rcvAccountRegisters.setAdapter(accountRegisterAdapter);
             });

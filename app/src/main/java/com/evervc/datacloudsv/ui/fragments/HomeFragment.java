@@ -82,6 +82,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void onChangeAccountRegistersList() {
-        AccountRegisterControllerDB.showAccountRegisters(rcvAccountRegisters, tvInformationMessage, getContext(), this::onChangeAccountRegistersList);
+        AccountRegisterControllerDB.showAccountRegisters(rcvAccountRegisters, tvInformationMessage, getContext(), getChildFragmentManager(), this::onChangeAccountRegistersList);
     }
 }

@@ -18,6 +18,8 @@ public interface IAccountRegisterDAO {
     int updateRegister(AccountRegister registerAcount);
     @Delete
     int deleteRegister(AccountRegister registerAcount);
+    @Query("SELECT * FROM AccountRegister WHERE id = :id")
+    AccountRegister getAccountRegisterById(int id);
     @Query("SELECT * FROM AccountRegister")
     List<AccountRegister> getAllAccountRegisters();
 }

@@ -11,11 +11,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.evervc.datacloudsv.R;
 import com.evervc.datacloudsv.database.AccountRegistersDB;
 import com.evervc.datacloudsv.models.AccountRegister;
+import com.evervc.datacloudsv.ui.dialogs.RegisterItemDialog;
 import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
 import com.evervc.datacloudsv.ui.utils.IAccountRegisterListener;
 
@@ -26,11 +28,19 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
     private Context context;
     private AccountRegistersDB db;
     private IAccountRegisterListener listener;
+    private FragmentManager fragmentManager;
 
     public AccountRegisterAdapter(List<AccountRegister> lstAccountRegisters, Context context, IAccountRegisterListener listener) {
         this.lstAccountRegisters = lstAccountRegisters;
         this.context = context;
         this.listener = listener;
+    }
+
+    public AccountRegisterAdapter(List<AccountRegister> lstAccountRegisters, Context context, IAccountRegisterListener listener, FragmentManager fragmentManager) {
+        this.lstAccountRegisters = lstAccountRegisters;
+        this.context = context;
+        this.listener = listener;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -49,15 +59,11 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
         holder.cvRegisterItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AccountRegisterControllerDB.deleteAccountRegister(accountRegister, context, listener);
+                RegisterItemDialog dialog = RegisterItemDialog.newInstance(accountRegister.getId());
+                dialog.setListener(listener);
+                dialog.show(fragmentManager, "register_item_view");
             }
         });
-        /*holder.btnDeleteItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AccountRegisterControllerDB.deleteAccountRegister(accountRegister, context, listener);
-            }
-        });*/
     }
 
     @Override

@@ -28,31 +28,40 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        bindElemtsXml();
-        simulateProgress();
+        iniciarSplash();
+//        bindElemtsXml();
+//        simulateProgress();
     }
 
-    private void bindElemtsXml() {
-        prgsbrLoadActivity = findViewById(R.id.prgsbrLoadActivity);
+//    private void bindElemtsXml() {
+//        prgsbrLoadActivity = findViewById(R.id.prgsbrLoadActivity);
+//    }
+//
+//    private void simulateProgress() {
+//        new Thread(() -> {
+//            while (progressStatus < 100) {
+//                progressStatus += 1;
+//                handler.post(() -> prgsbrLoadActivity.setProgress(progressStatus));
+//                try {
+//                    Thread.sleep(20); // Velocidad del progreso
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            // Inicia HomeActivity una vez completado el progreso
+//            Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
+//            startActivity(homeActivity);
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//            finish();
+//        }).start();
+//    }
+
+
+    private void iniciarSplash() {
+        new Handler().postDelayed(() -> {
+            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            finish(); // Cierra splash
+        }, 2500);
     }
 
-    private void simulateProgress() {
-        new Thread(() -> {
-            while (progressStatus < 100) {
-                progressStatus += 1;
-                handler.post(() -> prgsbrLoadActivity.setProgress(progressStatus));
-                try {
-                    Thread.sleep(20); // Velocidad del progreso
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            // Inicia HomeActivity una vez completado el progreso
-            Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
-            startActivity(homeActivity);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
-        }).start();
-    }
 }

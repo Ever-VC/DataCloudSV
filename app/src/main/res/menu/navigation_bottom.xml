@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/btnHome"
+        android:title="Inicio"
+        android:icon="@drawable/baseline_home_24"
+    />
+    <item
+        android:id="@+id/btnSettings"
+        android:title="Ajustes"
+        android:icon="@drawable/baseline_miscellaneous_services_24"
+    />
+    <item
+        android:id="@+id/btnInfo"
+        android:title="Información"
+        android:icon="@drawable/baseline_info_outline_24"
+    />
+</menu>

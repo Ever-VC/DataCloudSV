@@ -19,6 +19,7 @@ import com.evervc.datacloudsv.database.AccountRegistersDB;
 import com.evervc.datacloudsv.models.AccountRegister;
 import com.evervc.datacloudsv.ui.dialogs.RegisterItemDialog;
 import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
+import com.evervc.datacloudsv.ui.utils.DateUtils;
 import com.evervc.datacloudsv.ui.utils.IAccountRegisterListener;
 
 import java.util.List;
@@ -56,6 +57,7 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
         holder.tvTitle.setText(accountRegister.getTitle());
         holder.tvUsername.setText(accountRegister.getUsername());
         holder.imgItem.setImageResource(R.drawable.encrypted);
+        holder.tvModificationDate.setText(DateUtils.getLastUpdatedMessage(accountRegister));
         holder.cvRegisterItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +74,7 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
     }
 
     public class AccountRegisterViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvTitle, tvUsername;
+        private TextView tvTitle, tvUsername, tvModificationDate;
         //private ImageButton btnDeleteItem, btnEditItem;
         private ImageView imgItem;
         private CardView cvRegisterItem;
@@ -80,6 +82,7 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvUsername = itemView.findViewById(R.id.tvUsername);
+            tvModificationDate = itemView.findViewById(R.id.tvModificationDate);
             cvRegisterItem = itemView.findViewById(R.id.cvRegisterItem);
 //            btnDeleteItem = itemView.findViewById(R.id.btnDeleteItem);
 //            btnEditItem = itemView.findViewById(R.id.btnEditItem);

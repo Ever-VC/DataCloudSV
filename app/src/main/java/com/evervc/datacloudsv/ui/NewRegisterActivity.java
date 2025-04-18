@@ -103,7 +103,7 @@ public class NewRegisterActivity extends AppCompatActivity {
         String website = TextUtils.isEmpty(websiteInput) ? null : websiteInput;
         String notes = TextUtils.isEmpty(notesInput) ? null : notesInput;
 
-        AccountRegister accountRegister = new AccountRegister(title, account, username, password, website, notes);
+        AccountRegister accountRegister = new AccountRegister(title, account, username, password, website, notes, System.currentTimeMillis(), null);
 
         // Aquí deberías guardar el objeto con Room (no mostrado)
         AccountRegisterControllerDB.insertAccountRegister(this, accountRegister);

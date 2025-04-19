@@ -7,10 +7,11 @@
     <color name="gray">#707070</color>
     <color name="dark_gray">#2D2D2D</color>
     <color name="light_gray">#B9BABA</color>
-    <color name="light_blue">#03A9F4</color>
+    <color name="light_blue">#42A5F5</color>
     <color name="blue">#03A9F4</color>
     <color name="dark_blue">#3F51B5</color>
     <color name="red">#FF0000</color>
+    <color name="soft_red">#EF5350</color>
     <color name="img_icon_profile">@color/dark_blue</color>
     <color name="transparent">#00FFFFFF</color>
     <!-- Background color Toolbar save new register  -->

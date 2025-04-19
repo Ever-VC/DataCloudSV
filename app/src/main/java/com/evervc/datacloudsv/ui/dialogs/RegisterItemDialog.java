@@ -23,12 +23,17 @@ import com.evervc.datacloudsv.models.AccountRegister;
 import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
 import com.evervc.datacloudsv.ui.utils.IAccountRegisterListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class RegisterItemDialog extends DialogFragment {
-    private TextView tvRegisterItemTitle;
-    private ImageView ivHideDialogRegisterView;
+    private TextView tvRegisterItemTitle, tvEmail, tvUsername, tvPassword, tvWebsite, tvRegisterDate,tvModifiedDate, tvNotes;
+
+    private ImageView ivHideDialogRegisterView, ivIcon;;
     private Button btnHideDialogRegisterView;
     private Button btnDeleteRegister;
 
@@ -99,9 +104,43 @@ public class RegisterItemDialog extends DialogFragment {
                 }
 
                 tvRegisterItemTitle.setText(accountRegister.getTitle());
+                tvEmail.setText(accountRegister.getAcount());
+                tvUsername.setText(accountRegister.getUsername());
+                tvPassword.setText(accountRegister.getPassword());
+                tvWebsite.setText(accountRegister.getWebsite());
+                tvNotes.setText(accountRegister.getNotes());
+                ivIcon.setImageResource(R.drawable.encrypted);
+
+
+                //tvRegisterDate.setText(accountRegister.getCreatedAt());
+
+                // Se valida si los campos no obligatorios estan vacios
+                validarCampoVacio(tvEmail, "No se ingreso un correo");
+                validarCampoVacio(tvWebsite, "No se ingreso un sitio web");
+                validarCampoVacio(tvNotes, "No se ingreso una nota");
+
+                // Manejar la fecha de registro
+                if (accountRegister.getCreatedAt() != 0) {
+                    String fechaFormateada = formatearFecha(accountRegister.getCreatedAt());
+                    tvRegisterDate.setText(fechaFormateada);
+                } else {
+                    tvRegisterDate.setText("Fecha no disponible");
+                }
+
+                // Manejar la fecha de modificación
+                Long fechaModificadaRaw = accountRegister.getModifiedAt();
+                if (fechaModificadaRaw != null && fechaModificadaRaw != 0) {
+                    String fechaModificada = formatearFecha(fechaModificadaRaw);
+                    tvModifiedDate.setText(fechaModificada);
+                } else {
+                    tvModifiedDate.setText("Sin modificar");
+                }
+
+
+
 
                 ivHideDialogRegisterView.setOnClickListener(v -> dismiss());
-                btnHideDialogRegisterView.setOnClickListener(v -> dismiss());
+                //btnHideDialogRegisterView.setOnClickListener(v -> dismiss());
 
                 btnDeleteRegister.setOnClickListener(v -> {
                     AccountRegisterControllerDB.deleteAccountRegister(accountRegister, getContext(), listener, this);
@@ -116,7 +155,36 @@ public class RegisterItemDialog extends DialogFragment {
     private void bindElementsXml(View view) {
         btnDeleteRegister = view.findViewById(R.id.btnDeleteRegister);
         ivHideDialogRegisterView = view.findViewById(R.id.ivHideDialogRegisterView);
-        btnHideDialogRegisterView = view.findViewById(R.id.btnHideDialogRegisterView);
+        //btnHideDialogRegisterView = view.findViewById(R.id.btnHideDialogRegisterView);
         tvRegisterItemTitle = view.findViewById(R.id.tvRegisterItemTitle);
+
+        tvEmail = view.findViewById(R.id.tvEmail);
+        tvUsername = view.findViewById(R.id.tvUsername);
+        tvPassword = view.findViewById(R.id.etPassword);
+        tvWebsite = view.findViewById(R.id.tvWebsite);
+        tvRegisterDate = view.findViewById(R.id.tvRegisterDate);
+        tvNotes = view.findViewById(R.id.tvNotes);
+        ivIcon = view.findViewById(R.id.ivIcon);
+        tvModifiedDate = view.findViewById(R.id.tvModifiedDate);
+
     }
+
+    //Funcion para validar campos vacios no obligatorios
+    private void validarCampoVacio(TextView textView, String mensaje) {
+        String texto = textView.getText().toString().trim();
+        if (texto.isEmpty()) {
+            textView.setText(mensaje);
+        }
+    }
+
+    //Funcion para el formateo de fecha/long
+    private String formatearFecha(long timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getDefault()); // Establecemos zona horaria
+        Date date = new Date(timestamp);
+        return sdf.format(date);
+    }
+
+
+
 }

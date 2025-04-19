@@ -62,7 +62,7 @@ public class RegisterItemDialog extends DialogFragment {
         }*/
         if (getDialog() != null && getDialog().getWindow() != null) {
             int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.9);
-            int height = (int) (getResources().getDisplayMetrics().heightPixels * 0.8);
+            int height = (int) (getResources().getDisplayMetrics().heightPixels * 0.9);
             getDialog().getWindow().setLayout(width, height);
             getDialog().getWindow().setGravity(Gravity.CENTER); // Asegura que esté centrado
         }

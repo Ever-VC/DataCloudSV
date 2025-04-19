@@ -141,8 +141,8 @@
                         android:id="@+id/divider1"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="?android:attr/listDivider"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/separationLine"
                         app:layout_constraintTop_toBottomOf="@id/tvEmail" />
 
                     <!-- USERNAME -->
@@ -150,7 +150,7 @@
                         android:id="@+id/tvUsernameLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:text="Usuario"
                         android:textSize="14sp"
                         android:textColor="?android:textColorSecondary"
@@ -173,8 +173,8 @@
                         android:id="@+id/divider2"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="?android:attr/listDivider"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/separationLine"
                         app:layout_constraintTop_toBottomOf="@id/tvUsername" />
 
                     <!-- CONTRASEÑA -->
@@ -182,7 +182,7 @@
                         android:id="@+id/tvPasswordLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:text="Contraseña"
                         android:textSize="14sp"
                         android:textColor="?android:textColorSecondary"
@@ -193,7 +193,6 @@
                         android:id="@+id/tilPassword"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
                         app:passwordToggleEnabled="true"
                         app:hintEnabled="false"
                         app:boxBackgroundMode="none"
@@ -211,15 +210,17 @@
                             android:inputType="textPassword"
                             android:textSize="16sp"
                             android:textColor="?android:textColorPrimary"
-                            android:maxLines="1" />
+                            android:maxLines="1"
+                            android:focusable="false"
+                            android:clickable="false"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <View
                         android:id="@+id/divider3"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="?android:attr/listDivider"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/separationLine"
                         app:layout_constraintTop_toBottomOf="@id/tilPassword" />
 
                     <!-- SITIO WEB -->
@@ -227,7 +228,7 @@
                         android:id="@+id/tvWebsiteLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:text="Sitio web"
                         android:textSize="14sp"
                         android:textColor="?android:textColorSecondary"
@@ -250,8 +251,8 @@
                         android:id="@+id/divider4"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="?android:attr/listDivider"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/separationLine"
                         app:layout_constraintTop_toBottomOf="@id/tvWebsite" />
 
                     <!-- NOTAS -->
@@ -259,7 +260,7 @@
                         android:id="@+id/tvNotesLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:text="Notas"
                         android:textSize="14sp"
                         android:textColor="?android:textColorSecondary"
@@ -284,8 +285,8 @@
                         android:id="@+id/divider5"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="?android:attr/listDivider"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/separationLine"
                         app:layout_constraintTop_toBottomOf="@id/tvNotes" />
 
                     <!-- FECHA DE REGISTRO -->
@@ -293,7 +294,7 @@
                         android:id="@+id/tvRegisterDateLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:text="Fecha de registro"
                         android:textSize="14sp"
                         android:textColor="?android:textColorSecondary"
@@ -312,16 +313,24 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
+                    <View
+                        android:id="@+id/divider6"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/separationLine"
+                        app:layout_constraintTop_toBottomOf="@id/tvRegisterDate" />
+
                     <!-- NUEVO: FECHA DE MODIFICACIÓN -->
                     <TextView
                         android:id="@+id/tvModifiedDateLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:text="Fecha de modificación"
                         android:textSize="14sp"
                         android:textColor="?android:textColorSecondary"
-                        app:layout_constraintTop_toBottomOf="@id/tvRegisterDate"
+                        app:layout_constraintTop_toBottomOf="@id/divider6"
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
@@ -359,10 +368,9 @@
                 android:text="Editar"
                 android:textAllCaps="false"
                 android:paddingVertical="12dp"
-                android:drawableLeft="@android:drawable/ic_menu_edit"
-                android:drawableTint="@android:color/white"
+                android:drawableTop="@android:drawable/ic_menu_edit"
                 app:cornerRadius="24dp"
-                style="@style/button_primary" />
+                style="@style/editDeleteButtons" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeleteRegister"
@@ -373,12 +381,9 @@
                 android:text="Eliminar"
                 android:textAllCaps="false"
                 android:paddingVertical="12dp"
-                android:drawableLeft="@android:drawable/ic_menu_delete"
-                android:drawableTint="@android:color/white"
+                android:drawableTop="@android:drawable/ic_menu_delete"
                 app:cornerRadius="24dp"
-                style="@style/button_danger"
-
-                />
+                style="@style/editDeleteButtons"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

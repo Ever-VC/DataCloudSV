@@ -1,6 +1,7 @@
 package com.evervc.datacloudsv.ui.dialogs;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,7 +21,9 @@ import androidx.fragment.app.DialogFragment;
 import com.evervc.datacloudsv.R;
 import com.evervc.datacloudsv.database.AccountRegistersDB;
 import com.evervc.datacloudsv.models.AccountRegister;
+import com.evervc.datacloudsv.ui.NewRegisterActivity;
 import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
+import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
 import com.evervc.datacloudsv.ui.utils.IAccountRegisterListener;
 
 import java.text.SimpleDateFormat;
@@ -33,7 +36,7 @@ import java.util.concurrent.Executors;
 public class RegisterItemDialog extends DialogFragment {
     private TextView tvRegisterItemTitle, tvEmail, tvUsername, tvPassword, tvWebsite, tvRegisterDate,tvModifiedDate, tvNotes;
     private ImageView ivHideDialogRegisterView, ivIcon;
-    private Button btnDeleteRegister;
+    private Button btnDeleteRegister, btnUpdateRegister;
     private IAccountRegisterListener listener;
     private AccountRegister accountRegister;
 
@@ -137,6 +140,18 @@ public class RegisterItemDialog extends DialogFragment {
                 btnDeleteRegister.setOnClickListener(v -> {
                     AccountRegisterControllerDB.deleteAccountRegister(accountRegister, getContext(), listener, this);
                 });
+
+                // Evento de actualizar registro (llama al activity y setea el registro a editar)
+                btnUpdateRegister.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent updateAccountRegisterIntent = new Intent(getContext(), NewRegisterActivity.class);
+                        updateAccountRegisterIntent.putExtra("idAccountRegister", accountRegister.getId());
+                        startActivity(updateAccountRegisterIntent);
+                        ActivityTransitionUtil.applyEnterTransition(requireActivity());
+                        dismiss();
+                    }
+                });
             });
         });
 
@@ -145,6 +160,7 @@ public class RegisterItemDialog extends DialogFragment {
 
     private void bindElementsXml(View view) {
         btnDeleteRegister = view.findViewById(R.id.btnDeleteRegister);
+        btnUpdateRegister = view.findViewById(R.id.btnUpdateRegister);
         ivHideDialogRegisterView = view.findViewById(R.id.ivHideDialogRegisterView);
         tvRegisterItemTitle = view.findViewById(R.id.tvRegisterItemTitle);
 

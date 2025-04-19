@@ -20,7 +20,6 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
-    private FragmentContainerView fcvContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void bindElementsXml() {
         bottomNavigation = findViewById(R.id.bottomNavigation);
-        fcvContainer = findViewById(R.id.fcvContainer);
     }
 
     private void chnageFragment(Fragment fragment) {

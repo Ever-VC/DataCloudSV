@@ -43,16 +43,20 @@ public class AccountRegisterControllerDB {
         });
     }
 
-    public static void updateAccountRegister(AppCompatActivity activity, AccountRegister accountRegister, IAccountRegisterListener listener) {
+    public static void updateAccountRegister(AppCompatActivity activity, AccountRegister accountRegister) {
+        Handler handler = new Handler(Looper.getMainLooper());
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             AccountRegistersDB db = AccountRegistersDB.getInstance(activity.getApplicationContext());
             int resultado = db.accountRegisterDAO().updateRegister(accountRegister);
 
-            if (resultado > 0) {
-                listener.onChangeAccountRegistersList();
-                activity.finish();
-            }
+            handler.post(() -> {
+                if (resultado > 0) {
+                    Toast.makeText(activity.getApplicationContext(), "Registro actualizado exitosamente.", Toast.LENGTH_SHORT).show();
+                    activity.setResult(activity.RESULT_OK);
+                    activity.finish();
+                }
+            });
         });
     }
 

@@ -31,7 +31,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class RegisterItemDialog extends DialogFragment {
-    private TextView tvRegisterItemTitle, tvEmail, tvUsername, tvPassword, tvWebsite, tvRegisterDate, tvNotes;
+    private TextView tvRegisterItemTitle, tvEmail, tvUsername, tvPassword, tvWebsite, tvRegisterDate,tvModifiedDate, tvNotes;
 
     private ImageView ivHideDialogRegisterView, ivIcon;;
     private Button btnHideDialogRegisterView;
@@ -111,20 +111,32 @@ public class RegisterItemDialog extends DialogFragment {
                 tvNotes.setText(accountRegister.getNotes());
                 ivIcon.setImageResource(R.drawable.encrypted);
 
+
                 //tvRegisterDate.setText(accountRegister.getCreatedAt());
 
-                // Validar si los campos están vacíos
+                // Se valida si los campos no obligatorios estan vacios
                 validarCampoVacio(tvEmail, "No se ingreso un correo");
                 validarCampoVacio(tvWebsite, "No se ingreso un sitio web");
                 validarCampoVacio(tvNotes, "No se ingreso una nota");
 
-                // Manejar la fecha de creación
+                // Manejar la fecha de registro
                 if (accountRegister.getCreatedAt() != 0) {
                     String fechaFormateada = formatearFecha(accountRegister.getCreatedAt());
                     tvRegisterDate.setText(fechaFormateada);
                 } else {
                     tvRegisterDate.setText("Fecha no disponible");
                 }
+
+                // Manejar la fecha de modificación
+                Long fechaModificadaRaw = accountRegister.getModifiedAt();
+                if (fechaModificadaRaw != null && fechaModificadaRaw != 0) {
+                    String fechaModificada = formatearFecha(fechaModificadaRaw);
+                    tvModifiedDate.setText(fechaModificada);
+                } else {
+                    tvModifiedDate.setText("Sin modificar");
+                }
+
+
 
 
                 ivHideDialogRegisterView.setOnClickListener(v -> dismiss());
@@ -153,6 +165,7 @@ public class RegisterItemDialog extends DialogFragment {
         tvRegisterDate = view.findViewById(R.id.tvRegisterDate);
         tvNotes = view.findViewById(R.id.tvNotes);
         ivIcon = view.findViewById(R.id.ivIcon);
+        tvModifiedDate = view.findViewById(R.id.tvModifiedDate);
 
     }
 
@@ -164,7 +177,7 @@ public class RegisterItemDialog extends DialogFragment {
         }
     }
 
-    //Uso unicamente para formateo de fecha
+    //Funcion para el formateo de fecha/long
     private String formatearFecha(long timestamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         sdf.setTimeZone(TimeZone.getDefault()); // Establecemos zona horaria

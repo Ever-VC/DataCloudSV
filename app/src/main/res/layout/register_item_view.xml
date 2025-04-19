@@ -254,7 +254,41 @@
                         android:background="?android:attr/listDivider"
                         app:layout_constraintTop_toBottomOf="@id/tvWebsite" />
 
-                    <!-- FECHA -->
+                    <!-- NOTAS -->
+                    <TextView
+                        android:id="@+id/tvNotesLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Notas"
+                        android:textSize="14sp"
+                        android:textColor="?android:textColorSecondary"
+                        app:layout_constraintTop_toBottomOf="@id/divider4"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvNotes"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Sin notas adicionales"
+                        android:textSize="16sp"
+                        android:textColor="?android:textColorPrimary"
+                        android:maxLines="5"
+                        android:ellipsize="end"
+                        app:layout_constraintTop_toBottomOf="@id/tvNotesLabel"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <View
+                        android:id="@+id/divider5"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintTop_toBottomOf="@id/tvNotes" />
+
+                    <!-- FECHA DE REGISTRO -->
                     <TextView
                         android:id="@+id/tvRegisterDateLabel"
                         android:layout_width="wrap_content"
@@ -263,7 +297,7 @@
                         android:text="Fecha de registro"
                         android:textSize="14sp"
                         android:textColor="?android:textColorSecondary"
-                        app:layout_constraintTop_toBottomOf="@id/divider4"
+                        app:layout_constraintTop_toBottomOf="@id/divider5"
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
@@ -278,36 +312,27 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-                    <View
-                        android:id="@+id/divider5"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
-                        android:background="?android:attr/listDivider"
-                        app:layout_constraintTop_toBottomOf="@id/tvRegisterDate" />
-
+                    <!-- NUEVO: FECHA DE MODIFICACIÓN -->
                     <TextView
-                        android:id="@+id/tvNotesLabel"
+                        android:id="@+id/tvModifiedDateLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Notas"
+                        android:text="Fecha de modificación"
                         android:textSize="14sp"
                         android:textColor="?android:textColorSecondary"
-                        app:layout_constraintTop_toBottomOf="@id/divider5"
+                        app:layout_constraintTop_toBottomOf="@id/tvRegisterDate"
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
-                        android:id="@+id/tvNotes"
+                        android:id="@+id/tvModifiedDate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Sin notas adicionales"
+                        android:text="01/01/2025"
                         android:textSize="16sp"
                         android:textColor="?android:textColorPrimary"
-                        android:maxLines="5"
-                        android:ellipsize="end"
-                        app:layout_constraintTop_toBottomOf="@id/tvNotesLabel"
+                        app:layout_constraintTop_toBottomOf="@id/tvModifiedDateLabel"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 

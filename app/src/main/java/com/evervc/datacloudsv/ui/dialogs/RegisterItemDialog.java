@@ -32,11 +32,8 @@ import java.util.concurrent.Executors;
 
 public class RegisterItemDialog extends DialogFragment {
     private TextView tvRegisterItemTitle, tvEmail, tvUsername, tvPassword, tvWebsite, tvRegisterDate,tvModifiedDate, tvNotes;
-
-    private ImageView ivHideDialogRegisterView, ivIcon;;
-    private Button btnHideDialogRegisterView;
+    private ImageView ivHideDialogRegisterView, ivIcon;
     private Button btnDeleteRegister;
-
     private IAccountRegisterListener listener;
     private AccountRegister accountRegister;
 
@@ -57,10 +54,8 @@ public class RegisterItemDialog extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        /*if (getDialog() != null) {
-            getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        }*/
         if (getDialog() != null && getDialog().getWindow() != null) {
+            // Se define el tamaño del dialogo como el 90% del alto y ancho de la pantalla
             int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.9);
             int height = (int) (getResources().getDisplayMetrics().heightPixels * 0.9);
             getDialog().getWindow().setLayout(width, height);
@@ -72,7 +67,7 @@ public class RegisterItemDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        // Hacer fondo del DialogFragment transparente
+        // Hace el fondo del DialogFragment transparente
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
@@ -83,26 +78,29 @@ public class RegisterItemDialog extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.register_item_view, container, false);
-        bindElementsXml(view);
+        bindElementsXml(view); // Asocia los elementos del xml
 
+        // Almacena el id del registro seleccionado, si hubo un error y no se ha enviadno ningún id, cierra el dialogo
         int registerId = getArguments() != null ? getArguments().getInt("registerId", -1) : -1;
         if (registerId == -1) {
             dismiss();
             return view;
         }
 
+        // Extrae la información desde la base de datos y la muestra
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             AccountRegistersDB db = AccountRegistersDB.getInstance(getContext());
             accountRegister = db.accountRegisterDAO().getAccountRegisterById(registerId);
 
             requireActivity().runOnUiThread(() -> {
+                // En caso de no haber un registro con esa información, cierra el dialogo
                 if (accountRegister == null) {
-                    System.out.println("El registro es nulooooooooo!!!! ----------------------------");
                     dismiss();
                     return;
                 }
 
+                // Carga la información del registro de la base de datos en el dialogo
                 tvRegisterItemTitle.setText(accountRegister.getTitle());
                 tvEmail.setText(accountRegister.getAcount());
                 tvUsername.setText(accountRegister.getUsername());
@@ -111,13 +109,10 @@ public class RegisterItemDialog extends DialogFragment {
                 tvNotes.setText(accountRegister.getNotes());
                 ivIcon.setImageResource(R.drawable.encrypted);
 
-
-                //tvRegisterDate.setText(accountRegister.getCreatedAt());
-
                 // Se valida si los campos no obligatorios estan vacios
-                validarCampoVacio(tvEmail, "No se ingreso un correo");
-                validarCampoVacio(tvWebsite, "No se ingreso un sitio web");
-                validarCampoVacio(tvNotes, "No se ingreso una nota");
+                validarCampoVacio(tvEmail, "No se ha registrado ningún correo...");
+                validarCampoVacio(tvWebsite, "No se ha registrado ningún sitio web...");
+                validarCampoVacio(tvNotes, "No se ha registrado ninguna nota...");
 
                 // Manejar la fecha de registro
                 if (accountRegister.getCreatedAt() != 0) {
@@ -136,12 +131,9 @@ public class RegisterItemDialog extends DialogFragment {
                     tvModifiedDate.setText("Sin modificar");
                 }
 
+                ivHideDialogRegisterView.setOnClickListener(v -> dismiss()); // Evento de cerrar el dialogo con el boton "X"
 
-
-
-                ivHideDialogRegisterView.setOnClickListener(v -> dismiss());
-                //btnHideDialogRegisterView.setOnClickListener(v -> dismiss());
-
+                // Evento de eliminar el registro que se esta observando
                 btnDeleteRegister.setOnClickListener(v -> {
                     AccountRegisterControllerDB.deleteAccountRegister(accountRegister, getContext(), listener, this);
                 });
@@ -151,11 +143,9 @@ public class RegisterItemDialog extends DialogFragment {
         return view;
     }
 
-
     private void bindElementsXml(View view) {
         btnDeleteRegister = view.findViewById(R.id.btnDeleteRegister);
         ivHideDialogRegisterView = view.findViewById(R.id.ivHideDialogRegisterView);
-        //btnHideDialogRegisterView = view.findViewById(R.id.btnHideDialogRegisterView);
         tvRegisterItemTitle = view.findViewById(R.id.tvRegisterItemTitle);
 
         tvEmail = view.findViewById(R.id.tvEmail);

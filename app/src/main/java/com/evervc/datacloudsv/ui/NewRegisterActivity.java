@@ -2,11 +2,8 @@ package com.evervc.datacloudsv.ui;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,7 +19,6 @@ import com.evervc.datacloudsv.R;
 import com.evervc.datacloudsv.models.AccountRegister;
 import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
 import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
-import com.evervc.datacloudsv.ui.utils.IAccountRegisterListener;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class NewRegisterActivity extends AppCompatActivity {
@@ -64,13 +60,6 @@ public class NewRegisterActivity extends AppCompatActivity {
         etWebSiteNewRegister = findViewById(R.id.etWebSiteNewRegister);
         etNotesNewRegister = findViewById(R.id.etNotesNewRegister);
     }
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.save_register_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -78,14 +67,12 @@ public class NewRegisterActivity extends AppCompatActivity {
             finish(); // Cierra la actividad
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             return true;
-        } /*else if (item.getItemId() == R.id.btnSaveRegister) {
-            Toast.makeText(this, "Se ha guardado el registro...", Toast.LENGTH_SHORT).show();
-            return true;
-        }*/
+        }
         return super.onOptionsItemSelected(item);
     }
 
     public void addRegister(View view) {
+        // Almacena todos los datos en variables temporales
         String title = etTitleNewRegister.getText().toString().trim();
         String accountInput = etAccountNewRegister.getText().toString().trim();
         String username = etUsernameNewRegister.getText().toString().trim();
@@ -93,6 +80,7 @@ public class NewRegisterActivity extends AppCompatActivity {
         String websiteInput = etWebSiteNewRegister.getText().toString().trim();
         String notesInput = etNotesNewRegister.getText().toString().trim();
 
+        // Valida que todos los campos obligatorios estén completamente llenos
         if (TextUtils.isEmpty(title) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Asegúrese de haber llenado los campos que tienen un [*]", Toast.LENGTH_SHORT).show();
             return;
@@ -103,9 +91,10 @@ public class NewRegisterActivity extends AppCompatActivity {
         String website = TextUtils.isEmpty(websiteInput) ? null : websiteInput;
         String notes = TextUtils.isEmpty(notesInput) ? null : notesInput;
 
+        // Crea un objeto desde el contructor, enviando los datos obtenidos y filtrados
         AccountRegister accountRegister = new AccountRegister(title, account, username, password, website, notes, System.currentTimeMillis(), null);
 
-        // Aquí deberías guardar el objeto con Room (no mostrado)
+        // Manda a llamar la función que almacena el registro
         AccountRegisterControllerDB.insertAccountRegister(this, accountRegister);
     }
 

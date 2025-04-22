@@ -22,6 +22,7 @@
         android:layout_marginTop="16dp"
         style="@style/tvInfoMessage"
         android:text="Aún no hay cuentas registradas..."
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/tvTitleHome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

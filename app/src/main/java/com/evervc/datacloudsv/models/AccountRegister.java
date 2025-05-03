@@ -34,8 +34,17 @@ public class AccountRegister {
     @ColumnInfo
     @Nullable
     private Long modifiedAt;
+    @ColumnInfo
+    @NonNull
+    private String saltBase64;
+    @ColumnInfo
+    @NonNull
+    private String ivBase64;
 
-    public AccountRegister(@NonNull String title, @Nullable String acount, @NonNull String username, @NonNull String password, @Nullable String website, @Nullable String notes, @NonNull Long createdAt, @Nullable Long modifiedAt) {
+    public AccountRegister(@NonNull String title, @Nullable String acount, @NonNull String username,
+                           @NonNull String password, @Nullable String website, @Nullable String notes,
+                           @NonNull Long createdAt, @Nullable Long modifiedAt, @NonNull String saltBase64,
+                           @NonNull String ivBase64) {
         this.title = title;
         this.acount = acount;
         this.username = username;
@@ -44,6 +53,8 @@ public class AccountRegister {
         this.notes = notes;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
+        this.saltBase64 = saltBase64;
+        this.ivBase64 = ivBase64;
     }
 
     public int getId() {
@@ -124,5 +135,23 @@ public class AccountRegister {
 
     public void setModifiedAt(@Nullable Long modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    @NonNull
+    public String getSaltBase64() {
+        return saltBase64;
+    }
+
+    public void setSaltBase64(@NonNull String saltBase64) {
+        this.saltBase64 = saltBase64;
+    }
+
+    @NonNull
+    public String getIvBase64() {
+        return ivBase64;
+    }
+
+    public void setIvBase64(@NonNull String ivBase64) {
+        this.ivBase64 = ivBase64;
     }
 }

@@ -3,6 +3,7 @@ package com.evervc.datacloudsv.ui.utils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -35,7 +37,7 @@ public class AccountRegisterControllerDB {
 
             handler.post(() -> {
                 if (resultado > 0) {
-                    Toast.makeText(activity.getApplicationContext(), "Registro agregado exitosamente.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity.getApplicationContext(), "Registro creado con éxito.", Toast.LENGTH_SHORT).show();
                     activity.setResult(activity.RESULT_OK);
                     activity.finish();
                 }
@@ -52,7 +54,7 @@ public class AccountRegisterControllerDB {
 
             handler.post(() -> {
                 if (resultado > 0) {
-                    Toast.makeText(activity.getApplicationContext(), "Registro actualizado exitosamente.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity.getApplicationContext(), "Registro actualizado con éxito.", Toast.LENGTH_SHORT).show();
                     activity.setResult(activity.RESULT_OK);
                     activity.finish();
                 }
@@ -61,6 +63,7 @@ public class AccountRegisterControllerDB {
     }
 
     public static void deleteAccountRegister(AccountRegister accountRegister, Context context, IAccountRegisterListener listener, DialogFragment dialogFragment) {
+        Handler handler = new Handler(Looper.getMainLooper());
         AlertDialog.Builder mensajeDeConfirmacion = new AlertDialog.Builder(context);
         mensajeDeConfirmacion.setTitle("¿Está seguro que desea eliminar el registro?");
         mensajeDeConfirmacion.setMessage("Esta acción no puede revertirse, por lo tanto los cambios serán permanentes.");
@@ -71,10 +74,13 @@ public class AccountRegisterControllerDB {
                 executorService.execute(() -> {
                     AccountRegistersDB db = AccountRegistersDB.getInstance(context);
                     int resultado = db.accountRegisterDAO().deleteRegister(accountRegister);
-                    if (resultado > 0) {
-                        listener.onChangeAccountRegistersList();
-                        dialogFragment.dismiss();
-                    }
+                    handler.post(() -> {
+                        if (resultado > 0) {
+                            Toast.makeText(context, "Registro eliminado con éxito.", Toast.LENGTH_SHORT).show();
+                            listener.onChangeAccountRegistersList();
+                            dialogFragment.dismiss();
+                        }
+                    });
                 });
             }
         }).setNegativeButton("No", null).show();
@@ -82,7 +88,7 @@ public class AccountRegisterControllerDB {
 
 
 
-    public static void showAccountRegisters(RecyclerView rcvAccountRegisters, TextView tvInformationMessage, Context context, FragmentManager fragmentManager, IAccountRegisterListener listener) {
+    public static void showAccountRegisters(RecyclerView rcvAccountRegisters, TextView tvInformationMessage, Context context, FragmentManager fragmentManager, IAccountRegisterListener listener, ActivityResultLauncher<Intent> newAccountRegisterLauncher) {
         Handler handler = new Handler(Looper.getMainLooper());
 
         // Obteniendo los valores insertados
@@ -98,7 +104,7 @@ public class AccountRegisterControllerDB {
                     tvInformationMessage.setVisibility(View.VISIBLE);
                 }
 
-                AccountRegisterAdapter accountRegisterAdapter = new AccountRegisterAdapter(lstAccountRegisters, context, listener, fragmentManager);
+                AccountRegisterAdapter accountRegisterAdapter = new AccountRegisterAdapter(lstAccountRegisters, context, listener, fragmentManager, newAccountRegisterLauncher);
                 rcvAccountRegisters.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false));
                 rcvAccountRegisters.setAdapter(accountRegisterAdapter);
             });

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -42,6 +43,7 @@ public class RegisterItemDialog extends DialogFragment {
     private Button btnDeleteRegister, btnUpdateRegister;
     private IAccountRegisterListener listener;
     private AccountRegister accountRegister;
+    private ActivityResultLauncher<Intent> newAccountRegisterLauncher;
 
     public RegisterItemDialog() {}
 
@@ -55,6 +57,10 @@ public class RegisterItemDialog extends DialogFragment {
 
     public void setListener(IAccountRegisterListener listener) {
         this.listener = listener;
+    }
+
+    public void setNewAccountRegisterLauncher(ActivityResultLauncher<Intent> newAccountRegisterLauncher) {
+        this.newAccountRegisterLauncher = newAccountRegisterLauncher;
     }
 
     @Override
@@ -162,7 +168,7 @@ public class RegisterItemDialog extends DialogFragment {
                     public void onClick(View view) {
                         Intent updateAccountRegisterIntent = new Intent(getContext(), NewRegisterActivity.class);
                         updateAccountRegisterIntent.putExtra("idAccountRegister", accountRegister.getId());
-                        startActivity(updateAccountRegisterIntent);
+                        newAccountRegisterLauncher.launch(updateAccountRegisterIntent);
                         ActivityTransitionUtil.applyEnterTransition(requireActivity());
                         dismiss();
                     }

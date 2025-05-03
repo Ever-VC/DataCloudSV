@@ -24,6 +24,7 @@ import com.evervc.datacloudsv.models.AccountRegister;
 import com.evervc.datacloudsv.ui.NewRegisterActivity;
 import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
 import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
+import com.evervc.datacloudsv.ui.utils.CryptoUtils;
 import com.evervc.datacloudsv.ui.utils.IAccountRegisterListener;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +33,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.crypto.SecretKey;
 
 public class RegisterItemDialog extends DialogFragment {
     private TextView tvRegisterItemTitle, tvEmail, tvUsername, tvPassword, tvWebsite, tvRegisterDate,tvModifiedDate, tvNotes;
@@ -83,7 +86,7 @@ public class RegisterItemDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.register_item_view, container, false);
         bindElementsXml(view); // Asocia los elementos del xml
 
-        // Almacena el id del registro seleccionado, si hubo un error y no se ha enviadno ningún id, cierra el dialogo
+        // Almacena el id del registro seleccionado, si hubo un error y no se ha enviando ningún id, cierra el dialogo
         int registerId = getArguments() != null ? getArguments().getInt("registerId", -1) : -1;
         if (registerId == -1) {
             dismiss();
@@ -103,35 +106,47 @@ public class RegisterItemDialog extends DialogFragment {
                     return;
                 }
 
-                // Carga la información del registro de la base de datos en el dialogo
-                tvRegisterItemTitle.setText(accountRegister.getTitle());
-                tvEmail.setText(accountRegister.getAcount());
-                tvUsername.setText(accountRegister.getUsername());
-                tvPassword.setText(accountRegister.getPassword());
-                tvWebsite.setText(accountRegister.getWebsite());
-                tvNotes.setText(accountRegister.getNotes());
-                ivIcon.setImageResource(R.drawable.encrypted);
+                byte[] recoveredSalt = CryptoUtils.decodeFromBase64(accountRegister.getSaltBase64());
+                byte[] recoveredIv = CryptoUtils.decodeFromBase64(accountRegister.getIvBase64());
 
-                // Se valida si los campos no obligatorios estan vacios
-                validarCampoVacio(tvEmail, "No se ha registrado ningún correo...");
-                validarCampoVacio(tvWebsite, "No se ha registrado ningún sitio web...");
-                validarCampoVacio(tvNotes, "No se ha registrado ninguna nota...");
+                try {
+                    SecretKey recoveredKey = CryptoUtils.deriveKey("miClaveMaestra123", recoveredSalt);
+                    String passwordCracked = CryptoUtils.decrypt(accountRegister.getPassword(), recoveredKey, recoveredIv);
 
-                // Manejar la fecha de registro
-                if (accountRegister.getCreatedAt() != 0) {
-                    String fechaFormateada = formatearFecha(accountRegister.getCreatedAt());
-                    tvRegisterDate.setText(fechaFormateada);
-                } else {
-                    tvRegisterDate.setText("Fecha no disponible");
-                }
+                    // Carga la información del registro de la base de datos en el dialogo
+                    tvRegisterItemTitle.setText(accountRegister.getTitle());
+                    tvEmail.setText(accountRegister.getAcount());
+                    tvUsername.setText(accountRegister.getUsername());
+                    tvPassword.setText(passwordCracked);
+                    tvWebsite.setText(accountRegister.getWebsite());
+                    tvNotes.setText(accountRegister.getNotes());
+                    ivIcon.setImageResource(R.drawable.encrypted);
 
-                // Manejar la fecha de modificación
-                Long fechaModificadaRaw = accountRegister.getModifiedAt();
-                if (fechaModificadaRaw != null && fechaModificadaRaw != 0) {
-                    String fechaModificada = formatearFecha(fechaModificadaRaw);
-                    tvModifiedDate.setText(fechaModificada);
-                } else {
-                    tvModifiedDate.setText("Sin modificar");
+                    // Se valida si los campos no obligatorios estan vacios
+                    validarCampoVacio(tvEmail, "No se ha registrado ningún correo...");
+                    validarCampoVacio(tvWebsite, "No se ha registrado ningún sitio web...");
+                    validarCampoVacio(tvNotes, "No se ha registrado ninguna nota...");
+
+                    // Manejar la fecha de registro
+                    if (accountRegister.getCreatedAt() != 0) {
+                        String fechaFormateada = formatearFecha(accountRegister.getCreatedAt());
+                        tvRegisterDate.setText(fechaFormateada);
+                    } else {
+                        tvRegisterDate.setText("Fecha no disponible");
+                    }
+
+                    // Manejar la fecha de modificación
+                    Long fechaModificadaRaw = accountRegister.getModifiedAt();
+                    if (fechaModificadaRaw != null && fechaModificadaRaw != 0) {
+                        String fechaModificada = formatearFecha(fechaModificadaRaw);
+                        tvModifiedDate.setText(fechaModificada);
+                    } else {
+                        tvModifiedDate.setText("Sin modificar");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Error al cargar los datos.", Toast.LENGTH_SHORT).show();
+                    dismiss();
                 }
 
                 ivHideDialogRegisterView.setOnClickListener(v -> dismiss()); // Evento de cerrar el dialogo con el boton "X"

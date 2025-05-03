@@ -62,7 +62,6 @@ public class HomeFragment extends Fragment {
         fabAddRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // Show activity for create a new register
                 Intent newAccountRegisterIntent = new Intent(getContext(), NewRegisterActivity.class);
                 newAccountRegisterLauncher.launch(newAccountRegisterIntent);
@@ -82,6 +81,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void onChangeAccountRegistersList() {
-        AccountRegisterControllerDB.showAccountRegisters(rcvAccountRegisters, tvInformationMessage, getContext(), getChildFragmentManager(), this::onChangeAccountRegistersList);
+        AccountRegisterControllerDB.showAccountRegisters(rcvAccountRegisters, tvInformationMessage, getContext(), getChildFragmentManager(), this::onChangeAccountRegistersList, newAccountRegisterLauncher);
     }
 }

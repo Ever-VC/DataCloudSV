@@ -1,6 +1,7 @@
 package com.evervc.datacloudsv.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
@@ -30,18 +32,14 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
     private AccountRegistersDB db;
     private IAccountRegisterListener listener;
     private FragmentManager fragmentManager;
+    private ActivityResultLauncher<Intent> newAccountRegisterLauncher;
 
-    public AccountRegisterAdapter(List<AccountRegister> lstAccountRegisters, Context context, IAccountRegisterListener listener) {
-        this.lstAccountRegisters = lstAccountRegisters;
-        this.context = context;
-        this.listener = listener;
-    }
-
-    public AccountRegisterAdapter(List<AccountRegister> lstAccountRegisters, Context context, IAccountRegisterListener listener, FragmentManager fragmentManager) {
+    public AccountRegisterAdapter(List<AccountRegister> lstAccountRegisters, Context context, IAccountRegisterListener listener, FragmentManager fragmentManager, ActivityResultLauncher<Intent> newAccountRegisterLauncher) {
         this.lstAccountRegisters = lstAccountRegisters;
         this.context = context;
         this.listener = listener;
         this.fragmentManager = fragmentManager;
+        this.newAccountRegisterLauncher = newAccountRegisterLauncher;
     }
 
     @NonNull
@@ -63,6 +61,7 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
             public void onClick(View view) {
                 RegisterItemDialog dialog = RegisterItemDialog.newInstance(accountRegister.getId());
                 dialog.setListener(listener);
+                dialog.setNewAccountRegisterLauncher(newAccountRegisterLauncher);
                 dialog.show(fragmentManager, "register_item_view");
             }
         });

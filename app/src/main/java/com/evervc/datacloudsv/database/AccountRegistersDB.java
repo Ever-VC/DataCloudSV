@@ -9,13 +9,13 @@ import androidx.room.RoomDatabase;
 import com.evervc.datacloudsv.dao.IAccountRegisterDAO;
 import com.evervc.datacloudsv.models.AccountRegister;
 
-@Database(entities = {AccountRegister.class}, version = 2, exportSchema = false)
+@Database(entities = {AccountRegister.class}, version = 1, exportSchema = false)
 public abstract class AccountRegistersDB extends RoomDatabase {
     public abstract IAccountRegisterDAO accountRegisterDAO();
     private static AccountRegistersDB INSTANCE;
     public static synchronized AccountRegistersDB getInstance(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context, AccountRegistersDB.class, "passwordManager")
+            INSTANCE = Room.databaseBuilder(context, AccountRegistersDB.class, "passwordManager.db")
                     .fallbackToDestructiveMigration()
                     .build();
         }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cvRegisterItem"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    style="@style/screen"
+    app:cardCornerRadius="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgItem"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/profile_desing_icon"
+            android:clipToOutline="true"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/encrypted" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Facebook Personal"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imgItem"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:text="Ever Vásquez"
+            android:textColor="@color/light_gray"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgItem"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tvModificationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="2dp"
+            android:text="Última modificación hace 3 días"
+            android:textColor="@color/light_blue"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imgItem"
+            app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
+
+        <!--        <View-->
+<!--            android:id="@+id/view"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:background="@color/light_gray"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/imgItem" />-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/btnDeleteItem"-->
+<!--            style="@style/image_button_transparent"-->
+<!--            android:layout_width="28dp"-->
+<!--            android:layout_height="28dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:padding="10dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/delete" />-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/btnEditItem"-->
+<!--            style="@style/image_button_transparent"-->
+<!--            android:layout_width="28dp"-->
+<!--            android:layout_height="28dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:padding="10dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/btnDeleteItem"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/edit" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -32,20 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadSplash() {
         new Handler().postDelayed(() -> {
-            //Verificamos si ya hay un usuario en SharedPreferences
-            SharedPreferences prefs = getSharedPreferences("vault_prefs", MODE_PRIVATE);
-            String encryptedData = prefs.getString("enc_val", null);
+            // Revisamos si ya hay un hash guardado (usuario registrado)
+            SharedPreferences prefs = getSharedPreferences("AppData", MODE_PRIVATE);
+            String hashedPassword = prefs.getString("hashedPassword", null);
 
-            // Si ya hay un usuario, abrimos LoginActivity
-            if (encryptedData != null) {
+            if (hashedPassword != null) {
+                // Si hay un usuario registrado, de un solo al Login
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
-            // Si no hay un usuario, abrimos RegisterActivity
-            else {
+            } else {
+                // No hay un usuario registrado, de un solo al Registro
                 startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
             finish();
         }, 2500);
     }
-
 }

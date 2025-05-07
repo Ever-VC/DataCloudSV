@@ -1,6 +1,7 @@
 package com.evervc.datacloudsv;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -11,6 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.evervc.datacloudsv.ui.HomeActivity;
+import com.evervc.datacloudsv.ui.LoginActivity;
+import com.evervc.datacloudsv.ui.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,9 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadSplash() {
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(MainActivity.this, HomeActivity.class));
-            finish(); // Cierra splash
+            // Revisamos si ya hay un hash guardado (usuario registrado)
+            SharedPreferences prefs = getSharedPreferences("AppData", MODE_PRIVATE);
+            String hashedPassword = prefs.getString("hashedPassword", null);
+
+            if (hashedPassword != null) {
+                // Si hay un usuario registrado, de un solo al Login
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            } else {
+                // No hay un usuario registrado, de un solo al Registro
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+            }
+            finish();
         }, 2500);
     }
-
 }

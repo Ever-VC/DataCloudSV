@@ -60,4 +60,9 @@ dependencies {
 
     // optional - Paging 3 Integration
     implementation "androidx.room:room-paging:$room_version"
+
+    //Libreria del hashing
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+
 }

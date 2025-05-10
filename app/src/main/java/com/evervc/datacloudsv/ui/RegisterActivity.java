@@ -69,9 +69,8 @@ public class RegisterActivity extends AppCompatActivity {
                             .putString("hashedPassword", hashedPassword)
                             .apply();
 
-                    Toast.makeText(RegisterActivity.this, "Cuenta registrada", Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    Toast.makeText(RegisterActivity.this, "Cuenta registrada con éxito, bienvenido!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
                 }

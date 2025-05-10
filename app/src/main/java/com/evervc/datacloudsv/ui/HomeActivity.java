@@ -3,7 +3,10 @@ package com.evervc.datacloudsv.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,10 +29,12 @@ import java.util.concurrent.Executors;
 
 public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
+    private boolean doubleTouch = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -85,5 +90,22 @@ public class HomeActivity extends AppCompatActivity {
                 System.exit(0);
             }
         }).setNegativeButton("No", null).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleTouch) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleTouch = true;
+        Toast.makeText(this, "Precione dos veces para cerrar la app", Toast.LENGTH_SHORT).show();
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleTouch = false;
+            }
+        }, 2000);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -67,9 +69,8 @@ public class RegisterActivity extends AppCompatActivity {
                             .putString("hashedPassword", hashedPassword)
                             .apply();
 
-                    Toast.makeText(RegisterActivity.this, "Cuenta registrada", Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    Toast.makeText(RegisterActivity.this, "Cuenta registrada con éxito, bienvenido!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
                 }

@@ -1,76 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
-    android:padding="24dp"
-    android:fillViewport="true">
+    android:background="@color/white">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_gravity="center">
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-        <!-- Título -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Crear cuenta"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#3F51B5"
-            android:layout_marginBottom="32dp" />
-
-        <!-- Contraseña -->
-        <com.google.android.material.textfield.TextInputLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxStrokeColor="#3F51B5"
-            app:boxBackgroundMode="outline"
-            android:layout_marginBottom="16dp">
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPasswordRegister"
+            <!-- Gif / Logo -->
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/gifImageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/register_anim"
+                android:layout_gravity="center" />
+
+            <!-- Título -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contraseña"
-                android:inputType="textPassword"
-                android:textColor="#000000"
-                android:textColorHint="#757575" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:text="Crear contraseña maestra"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:textColor="#3F51B5"
+                android:layout_marginBottom="32dp" />
 
-        <!-- Confirmar contraseña -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxStrokeColor="#3F51B5"
-            app:boxBackgroundMode="outline"
-            android:layout_marginBottom="24dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etConfirmPasswordRegister"
+            <!-- Advertencia -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirmar contraseña"
-                android:inputType="textPassword"
-                android:textColor="#000000"
-                android:textColorHint="#757575" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_margin="10dp"
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                android:text="IMPORTANTE: Esta contraseña protege todas tus demás contraseñas. No se puede recuperar si la olvidas. Guárdala en un lugar seguro." />
 
-        <!-- Botón: Registrar -->
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Registrar"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#3F51B5"
-            android:layout_marginBottom="16dp" />
+            <!-- Contraseña -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:boxStrokeColor="#3F51B5"
+                app:boxBackgroundMode="outline">
 
-    </LinearLayout>
-</ScrollView>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPasswordRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/light_gray" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Confirmar contraseña -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:boxStrokeColor="#3F51B5"
+                app:boxBackgroundMode="outline">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etConfirmPasswordRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirmar contraseña"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/light_gray" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Botón -->
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrar"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#3F51B5"
+                android:layout_marginBottom="16dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,9 @@
 package com.evervc.datacloudsv.ui.dialogs;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -89,6 +92,7 @@ public class RegisterItemDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         View view = inflater.inflate(R.layout.register_item_view, container, false);
         bindElementsXml(view); // Asocia los elementos del xml
 
@@ -116,7 +120,12 @@ public class RegisterItemDialog extends DialogFragment {
                 byte[] recoveredIv = CryptoUtils.decodeFromBase64(accountRegister.getIvBase64());
 
                 try {
-                    SecretKey recoveredKey = CryptoUtils.deriveKey("miClaveMaestra123", recoveredSalt);
+                    // Obtener el hash almacenado de SharedPreferences (ACA NO SE COMO HACERLO)
+                    SharedPreferences prefs = requireContext().getSharedPreferences("AppData", Context.MODE_PRIVATE);
+                    String storedHash = prefs.getString("hashedPassword", null);
+
+                    // Implementar con SharedPreferences
+                    SecretKey recoveredKey = CryptoUtils.deriveKey(storedHash, recoveredSalt);
                     String passwordCracked = CryptoUtils.decrypt(accountRegister.getPassword(), recoveredKey, recoveredIv);
 
                     // Carga la información del registro de la base de datos en el dialogo

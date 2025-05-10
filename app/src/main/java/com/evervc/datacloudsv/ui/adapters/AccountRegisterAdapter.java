@@ -74,7 +74,6 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
 
     public class AccountRegisterViewHolder extends RecyclerView.ViewHolder {
         private TextView tvTitle, tvUsername, tvModificationDate;
-        //private ImageButton btnDeleteItem, btnEditItem;
         private ImageView imgItem;
         private CardView cvRegisterItem;
         public AccountRegisterViewHolder(@NonNull View itemView) {
@@ -83,8 +82,6 @@ public class AccountRegisterAdapter extends RecyclerView.Adapter<AccountRegister
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvModificationDate = itemView.findViewById(R.id.tvModificationDate);
             cvRegisterItem = itemView.findViewById(R.id.cvRegisterItem);
-//            btnDeleteItem = itemView.findViewById(R.id.btnDeleteItem);
-//            btnEditItem = itemView.findViewById(R.id.btnEditItem);
             imgItem = itemView.findViewById(R.id.imgItem);
         }
     }

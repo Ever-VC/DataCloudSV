@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -36,13 +37,14 @@ public class NewRegisterActivity extends AppCompatActivity {
     private MaterialToolbar toolbar;
     private int accountRegisterEditId = -1;
     private AccountRegister accountRegisterUpdate = null;
+    private String storedHash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_new_register);
-
         toolbar = findViewById(R.id.materialToolbar);
         setSupportActionBar(toolbar);
 
@@ -51,6 +53,10 @@ public class NewRegisterActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Obtener el hash almacenado de SharedPreferences
+        storedHash = getSharedPreferences("AppData", MODE_PRIVATE)
+                .getString("hashedPassword", null);
 
         accountRegisterEditId = getIntent().getIntExtra("idAccountRegister", -1);
         bindElementsXml();
@@ -79,7 +85,7 @@ public class NewRegisterActivity extends AppCompatActivity {
                     byte[] recoveredSalt = CryptoUtils.decodeFromBase64(accountRegister.getSaltBase64());
                     byte[] recoveredIv = CryptoUtils.decodeFromBase64(accountRegister.getIvBase64());
                     try {
-                        SecretKey recoveredKey = CryptoUtils.deriveKey("miClaveMaestra123", recoveredSalt);
+                        SecretKey recoveredKey = CryptoUtils.deriveKey(storedHash, recoveredSalt);
                         String passwordCracked = CryptoUtils.decrypt(accountRegister.getPassword(), recoveredKey, recoveredIv);
 
                         runOnUiThread(() -> {
@@ -160,7 +166,7 @@ public class NewRegisterActivity extends AppCompatActivity {
 
         try {
             // Derivar la clave desde la contraseña maestra usando SharedPreferences (pronto a agregar)
-            SecretKey key = CryptoUtils.deriveKey("miClaveMaestra123", salt);
+            SecretKey key = CryptoUtils.deriveKey(storedHash, salt);
 
             // Cifra la contraseña
             encryptedPassword = CryptoUtils.encrypt(password, key, iv);

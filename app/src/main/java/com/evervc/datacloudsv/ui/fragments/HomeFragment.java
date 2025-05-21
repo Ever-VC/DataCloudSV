@@ -1,6 +1,7 @@
 package com.evervc.datacloudsv.ui.fragments;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
@@ -22,12 +24,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.evervc.datacloudsv.R;
 import com.evervc.datacloudsv.ui.NewRegisterActivity;
 import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
 import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
+import com.evervc.datacloudsv.ui.utils.SortOption;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,6 +41,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView rcvAccountRegisters;
     private TextView tvInformationMessage;
     private ActivityResultLauncher<Intent> newAccountRegisterLauncher;
+    private MaterialToolbar toolbar;
+    private Dialog sort_dialog;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -60,7 +67,6 @@ public class HomeFragment extends Fragment {
         // Associating graphic elements
         bindElementsXml(view);
 
-        MaterialToolbar toolbar = view.findViewById(R.id.mtbFilters);
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
 
         requireActivity().addMenuProvider(new MenuProvider() {
@@ -110,6 +116,28 @@ public class HomeFragment extends Fragment {
         }, getViewLifecycleOwner(), Lifecycle.State.STARTED);
 
 
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                /*switch (item.getItemId()) {
+                    case R.id.btnSortNewer:
+                        return true;
+                    case R.id.btnSortOlder:
+                        return true;
+                    case R.id.btnSortAsc:
+                        return true;
+                    case R.id.btnSortDesc:
+                        return true;
+                }*/
+                if (item.getItemId() == R.id.btnSortRegisters) {
+                    sortRegisters();
+                }
+
+                return false;
+            }
+        });
+
+
         newAccountRegisterLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -139,6 +167,61 @@ public class HomeFragment extends Fragment {
         fabAddRegister = view.findViewById(R.id.fabAddRegister);
         rcvAccountRegisters = view.findViewById(R.id.rcvAccountRegisters);
         tvInformationMessage = view.findViewById(R.id.tvInformationMessage);
+        toolbar = view.findViewById(R.id.mtbFilters);
+        sort_dialog = new Dialog(getActivity());
+    }
+
+    private void sortRegisters() {
+        // Bind elements of Dialog
+        Button btnSortNewer, btnSortOlder, btnSortAsc, btnSortDesc;
+
+        sort_dialog.setContentView(R.layout.sort_registers_dialog);
+
+        btnSortNewer = sort_dialog.findViewById(R.id.btnSortNewer);
+        btnSortOlder = sort_dialog.findViewById(R.id.btnSortOlder);
+        btnSortAsc = sort_dialog.findViewById(R.id.btnSortAsc);
+        btnSortDesc = sort_dialog.findViewById(R.id.btnSortDesc);
+
+        // Add events to buttons
+        btnSortNewer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountRegisterControllerDB.showAccountRegistersSorted(SortOption.NEWEST_FIRST, rcvAccountRegisters, tvInformationMessage, getContext(), getChildFragmentManager(), HomeFragment.this::onChangeAccountRegistersList, newAccountRegisterLauncher);
+                Toast.makeText(getActivity(), "Ordenando por más nuevos.", Toast.LENGTH_SHORT).show();
+                sort_dialog.dismiss();
+            }
+        });
+
+        btnSortOlder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountRegisterControllerDB.showAccountRegistersSorted(SortOption.OLDEST_FIRST, rcvAccountRegisters, tvInformationMessage, getContext(), getChildFragmentManager(), HomeFragment.this::onChangeAccountRegistersList, newAccountRegisterLauncher);
+                Toast.makeText(getActivity(), "Ordenando por más antiguos.", Toast.LENGTH_SHORT).show();
+                sort_dialog.dismiss();
+            }
+        });
+
+        btnSortAsc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountRegisterControllerDB.showAccountRegistersSorted(SortOption.TITLE_ASC, rcvAccountRegisters, tvInformationMessage, getContext(), getChildFragmentManager(), HomeFragment.this::onChangeAccountRegistersList, newAccountRegisterLauncher);
+                Toast.makeText(getActivity(), "Ordenando por titulo A-Z.", Toast.LENGTH_SHORT).show();
+                sort_dialog.dismiss();
+            }
+        });
+
+        btnSortDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccountRegisterControllerDB.showAccountRegistersSorted(SortOption.TITLE_DESC, rcvAccountRegisters, tvInformationMessage, getContext(), getChildFragmentManager(), HomeFragment.this::onChangeAccountRegistersList, newAccountRegisterLauncher);
+                Toast.makeText(getActivity(), "Ordenando por titulo Z-A.", Toast.LENGTH_SHORT).show();
+                sort_dialog.dismiss();
+            }
+        });
+
+        //
+        sort_dialog.show();
+        sort_dialog.setCancelable(true);
     }
 
     private void onChangeAccountRegistersList() {

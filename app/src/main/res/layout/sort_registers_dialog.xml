@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="10dp">
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/sort"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Newer -->
+    <Button
+        android:id="@+id/btnSortNewer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nuevos"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#3F51B5"
+        android:layout_marginBottom="10dp" />
+    <!-- Older -->
+    <Button
+        android:id="@+id/btnSortOlder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Antiguos"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#3F51B5"
+        android:layout_marginBottom="10dp" />
+    <!-- ASC -->
+    <Button
+        android:id="@+id/btnSortAsc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="A-Z"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#3F51B5"
+        android:layout_marginBottom="10dp" />
+    <!-- DESC -->
+    <Button
+        android:id="@+id/btnSortDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Z-A"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#3F51B5"
+        android:layout_marginBottom="10dp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

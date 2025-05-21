@@ -132,4 +132,45 @@ public class AccountRegisterControllerDB {
             });
         });
     }
+
+    public static void showAccountRegistersSorted(SortOption sortOption, RecyclerView rcvAccountRegisters, TextView tvInformationMessage, Context context, FragmentManager fragmentManager, IAccountRegisterListener listener, ActivityResultLauncher<Intent> newAccountRegisterLauncher) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+        executorService.execute(() -> {
+            AccountRegistersDB db = AccountRegistersDB.getInstance(context);
+            List<AccountRegister> lstAccountRegisters;
+
+            // Decidir la consulta según la opción seleccionada
+            switch (sortOption) {
+                case TITLE_ASC:
+                    lstAccountRegisters = db.accountRegisterDAO().getAllByTitleAsc();
+                    break;
+                case TITLE_DESC:
+                    lstAccountRegisters = db.accountRegisterDAO().getAllByTitleDesc();
+                    break;
+                case NEWEST_FIRST:
+                    lstAccountRegisters = db.accountRegisterDAO().getAllByNewest();
+                    break;
+                case OLDEST_FIRST:
+                    lstAccountRegisters = db.accountRegisterDAO().getAllByOldest();
+                    break;
+                default:
+                    lstAccountRegisters = db.accountRegisterDAO().getAllAccountRegisters(); // fallback
+            }
+
+            List<AccountRegister> finalLstAccountRegisters = lstAccountRegisters;
+            handler.post(() -> {
+                if (!finalLstAccountRegisters.isEmpty()) {
+                    tvInformationMessage.setVisibility(View.GONE);
+                } else {
+                    tvInformationMessage.setVisibility(View.VISIBLE);
+                }
+
+                AccountRegisterAdapter accountRegisterAdapter = new AccountRegisterAdapter(finalLstAccountRegisters, context, listener, fragmentManager, newAccountRegisterLauncher);rcvAccountRegisters.setLayoutManager(new GridLayoutManager(context, 1));
+                rcvAccountRegisters.setAdapter(accountRegisterAdapter);
+            });
+        });
+    }
+
 }

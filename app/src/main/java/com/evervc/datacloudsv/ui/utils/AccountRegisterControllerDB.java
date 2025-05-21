@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,8 +87,6 @@ public class AccountRegisterControllerDB {
         }).setNegativeButton("No", null).show();
     }
 
-
-
     public static void showAccountRegisters(RecyclerView rcvAccountRegisters, TextView tvInformationMessage, Context context, FragmentManager fragmentManager, IAccountRegisterListener listener, ActivityResultLauncher<Intent> newAccountRegisterLauncher) {
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -96,6 +95,29 @@ public class AccountRegisterControllerDB {
         executorService.execute(() -> {
             AccountRegistersDB db = AccountRegistersDB.getInstance(context);
             List<AccountRegister> lstAccountRegisters = db.accountRegisterDAO().getAllAccountRegisters();
+            handler.post(() -> {
+
+                if (!lstAccountRegisters.isEmpty()) {
+                    tvInformationMessage.setVisibility(View.GONE);
+                } else {
+                    tvInformationMessage.setVisibility(View.VISIBLE);
+                }
+
+                AccountRegisterAdapter accountRegisterAdapter = new AccountRegisterAdapter(lstAccountRegisters, context, listener, fragmentManager, newAccountRegisterLauncher);
+                rcvAccountRegisters.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false));
+                rcvAccountRegisters.setAdapter(accountRegisterAdapter);
+            });
+        });
+    }
+
+    public static void showAccountRegistersByTitle(String title, RecyclerView rcvAccountRegisters, TextView tvInformationMessage, Context context, FragmentManager fragmentManager, IAccountRegisterListener listener, ActivityResultLauncher<Intent> newAccountRegisterLauncher) {
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        // Obteniendo los valores insertados que coinciden con el titulo
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+            AccountRegistersDB db = AccountRegistersDB.getInstance(context);
+            List<AccountRegister> lstAccountRegisters = db.accountRegisterDAO().getAllAccountsByTitle(title);
             handler.post(() -> {
 
                 if (!lstAccountRegisters.isEmpty()) {

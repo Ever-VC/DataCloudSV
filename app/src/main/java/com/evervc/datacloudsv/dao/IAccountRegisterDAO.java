@@ -22,4 +22,6 @@ public interface IAccountRegisterDAO {
     AccountRegister getAccountRegisterById(int id);
     @Query("SELECT * FROM AccountRegister")
     List<AccountRegister> getAllAccountRegisters();
+    @Query("SELECT * FROM AccountRegister WHERE title LIKE '%' || :title || '%'")
+    List<AccountRegister> getAllAccountsByTitle(String title);
 }

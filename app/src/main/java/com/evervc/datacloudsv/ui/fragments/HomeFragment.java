@@ -5,21 +5,30 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.evervc.datacloudsv.R;
 import com.evervc.datacloudsv.ui.NewRegisterActivity;
 import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
 import com.evervc.datacloudsv.ui.utils.ActivityTransitionUtil;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeFragment extends Fragment {
@@ -50,6 +59,56 @@ public class HomeFragment extends Fragment {
 
         // Associating graphic elements
         bindElementsXml(view);
+
+        MaterialToolbar toolbar = view.findViewById(R.id.mtbFilters);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.navigation_filters_top, menu);
+                MenuItem searchItem = menu.findItem(R.id.btnSearchBytitle);
+
+                SearchView searchView = (SearchView) searchItem.getActionView();
+                searchView.setQueryHint("Buscar por título...");
+
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        AccountRegisterControllerDB.showAccountRegistersByTitle(
+                                query,
+                                rcvAccountRegisters,
+                                tvInformationMessage,
+                                getContext(),
+                                getChildFragmentManager(),
+                                HomeFragment.this::onChangeAccountRegistersList,
+                                newAccountRegisterLauncher
+                        );
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        AccountRegisterControllerDB.showAccountRegistersByTitle(
+                                newText,
+                                rcvAccountRegisters,
+                                tvInformationMessage,
+                                getContext(),
+                                getChildFragmentManager(),
+                                HomeFragment.this::onChangeAccountRegistersList,
+                                newAccountRegisterLauncher
+                        );
+                        return true;
+                    }
+                });
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                return false;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.STARTED);
+
 
         newAccountRegisterLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

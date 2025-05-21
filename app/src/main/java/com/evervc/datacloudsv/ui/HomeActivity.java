@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentContainerView;
 
 import com.evervc.datacloudsv.R;
 import com.evervc.datacloudsv.database.AccountRegistersDB;
+import com.evervc.datacloudsv.ui.fragments.ConfigFragment;
 import com.evervc.datacloudsv.ui.fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -63,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
                 chnageFragment(new HomeFragment());
                 return true;
             case R.id.btnSettings:
-                Toast.makeText(HomeActivity.this, "Módulo en desarrollo...", Toast.LENGTH_SHORT).show();
+                chnageFragment(new ConfigFragment());
                 return false;
             case R.id.btnInfo:
                 Toast.makeText(HomeActivity.this, "Módulo en desarrollo...", Toast.LENGTH_SHORT).show();

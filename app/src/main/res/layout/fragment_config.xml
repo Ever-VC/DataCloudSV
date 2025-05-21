@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp"
+    tools:context=".ui.fragments.ConfigFragment">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Configuración"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="22sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/bg_screen"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvChangeTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cambiar tema de la aplicación:"
+                android:textColor="@color/light_blue"
+                android:textSize="16dp"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/theme_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    style="?attr/materialButtonOutlinedStyle"
+                    app:icon="@drawable/outline_light_mode_24"
+                    android:text="Claro"/>
+                <Button
+                    android:id="@+id/btnDark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    style="?attr/materialButtonOutlinedStyle"
+                    app:icon="@drawable/outline_dark_mode_24"
+                    android:text="Oscuro"/>
+                <Button
+                    android:id="@+id/btnSystem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    style="?attr/materialButtonOutlinedStyle"
+                    app:icon="@drawable/outline_invert_colors_24"
+                    android:text="Sistema"/>
+                
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

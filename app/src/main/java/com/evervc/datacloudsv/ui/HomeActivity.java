@@ -65,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             case R.id.btnSettings:
                 chnageFragment(new ConfigFragment());
-                return false;
+                return true;
             case R.id.btnInfo:
                 Toast.makeText(HomeActivity.this, "Módulo en desarrollo...", Toast.LENGTH_SHORT).show();
                 return false;

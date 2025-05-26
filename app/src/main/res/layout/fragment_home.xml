@@ -6,12 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.HomeFragment">
 
-    <TextView
-        android:id="@+id/tvTitleHome"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/mtbFilters"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/tvTitle"
-        android:text="Data Cloud SV"
+        android:background="@color/blue"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Data Cloud SV"
+        app:titleTextColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +27,7 @@
         style="@style/tvInfoMessage"
         android:text="Aún no hay cuentas registradas..."
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleHome"
+        app:layout_constraintTop_toBottomOf="@id/mtbFilters"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

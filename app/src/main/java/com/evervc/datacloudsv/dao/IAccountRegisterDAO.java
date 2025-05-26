@@ -22,4 +22,17 @@ public interface IAccountRegisterDAO {
     AccountRegister getAccountRegisterById(int id);
     @Query("SELECT * FROM AccountRegister")
     List<AccountRegister> getAllAccountRegisters();
+    @Query("SELECT * FROM AccountRegister WHERE title LIKE '%' || :title || '%'")
+    List<AccountRegister> getAllAccountsByTitle(String title);
+    @Query("SELECT * FROM AccountRegister ORDER BY title ASC")
+    List<AccountRegister> getAllByTitleAsc();
+    @Query("SELECT * FROM AccountRegister ORDER BY title DESC")
+    List<AccountRegister> getAllByTitleDesc();
+    @Query("SELECT * FROM AccountRegister ORDER BY createdAt DESC")
+    List<AccountRegister> getAllByNewest();
+    @Query("SELECT * FROM AccountRegister ORDER BY createdAt ASC")
+    List<AccountRegister> getAllByOldest();
+    @Query("DELETE FROM AccountRegister")
+    int deleteAllRegisters();
+
 }

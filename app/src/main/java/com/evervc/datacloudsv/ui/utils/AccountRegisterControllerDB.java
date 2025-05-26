@@ -173,4 +173,29 @@ public class AccountRegisterControllerDB {
         });
     }
 
+    public static void deleteAllAccountRegisters(Context context) {
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        new AlertDialog.Builder(context)
+                .setTitle("¿Eliminar todos los registros?")
+                .setMessage("Esta acción eliminará permanentemente todos los registros. ¿Está seguro?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    ExecutorService executorService = Executors.newSingleThreadExecutor();
+                    executorService.execute(() -> {
+                        AccountRegistersDB db = AccountRegistersDB.getInstance(context);
+                        int resultado = db.accountRegisterDAO().deleteAllRegisters();
+
+                        handler.post(() -> {
+                            if (resultado > 0) {
+                                Toast.makeText(context, "Se eliminaron todos los registros.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, "No hay registros para eliminar.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    });
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
 }

@@ -32,5 +32,7 @@ public interface IAccountRegisterDAO {
     List<AccountRegister> getAllByNewest();
     @Query("SELECT * FROM AccountRegister ORDER BY createdAt ASC")
     List<AccountRegister> getAllByOldest();
+    @Query("DELETE FROM AccountRegister")
+    int deleteAllRegisters();
 
 }

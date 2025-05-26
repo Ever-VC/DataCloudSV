@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.evervc.datacloudsv.R;
 import com.evervc.datacloudsv.database.AccountRegistersDB;
 import com.evervc.datacloudsv.models.AccountRegister;
+import com.evervc.datacloudsv.ui.ChangeMastePasswordrActivity;
 import com.evervc.datacloudsv.ui.utils.AccountRegisterControllerDB;
 import com.evervc.datacloudsv.ui.utils.EncryptionMigrator;
 import com.evervc.datacloudsv.ui.utils.ThemeHelper;
@@ -101,6 +102,8 @@ public class ConfigFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Hace cambio de contraaseña maestra
+                Intent changePwd = new Intent(getContext(), ChangeMastePasswordrActivity.class);
+                startActivity(changePwd);
             }
         });
 

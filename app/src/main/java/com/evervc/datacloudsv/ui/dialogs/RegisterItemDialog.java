@@ -120,7 +120,7 @@ public class RegisterItemDialog extends DialogFragment {
                 byte[] recoveredIv = CryptoUtils.decodeFromBase64(accountRegister.getIvBase64());
 
                 try {
-                    // Obtener el hash almacenado de SharedPreferences (ACA NO SE COMO HACERLO)
+                    // Obtener el hash almacenado de SharedPreferences
                     SharedPreferences prefs = requireContext().getSharedPreferences("AppData", Context.MODE_PRIVATE);
                     String storedHash = prefs.getString("hashedPassword", null);
 

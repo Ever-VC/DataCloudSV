@@ -51,29 +51,39 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String password = etPasswordRegister.getText().toString();
-                String confirmPassword = etConfirmPasswordRegister.getText().toString();
+                String password = etPasswordRegister.getText().toString().trim();
+                String confirmPassword = etConfirmPasswordRegister.getText().toString().trim();
 
-                // Verificar que las contraseñas coincidan
                 if (password.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Ambos campos son obligatorios", Toast.LENGTH_SHORT).show();
-                } else if (!password.equals(confirmPassword)) {
-                    Toast.makeText(RegisterActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Hasheamos la contraseña antes de guardarla
-                    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-
-                    // Guardar el la contraseña hasheada en SharedPreferences
-                    getSharedPreferences("AppData", MODE_PRIVATE)
-                            .edit()
-                            .putString("hashedPassword", hashedPassword)
-                            .apply();
-
-                    Toast.makeText(RegisterActivity.this, "Cuenta registrada con éxito, bienvenido!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                    return;
                 }
+
+                if (!password.equals(confirmPassword)) {
+                    Toast.makeText(RegisterActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!isPasswordStrong(password)) {
+                    Toast.makeText(RegisterActivity.this,
+                            "La contraseña debe tener mínimo 8 caracteres, incluir mayúsculas, minúsculas, números y símbolos.",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                // Hasheamos la contraseña antes de guardarla
+                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+                // Guardar la contraseña hasheada en SharedPreferences
+                getSharedPreferences("AppData", MODE_PRIVATE)
+                        .edit()
+                        .putString("hashedPassword", hashedPassword)
+                        .apply();
+
+                Toast.makeText(RegisterActivity.this, "Cuenta registrada con éxito, bienvenido!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -82,6 +92,12 @@ public class RegisterActivity extends AppCompatActivity {
         etConfirmPasswordRegister = findViewById(R.id.etConfirmPasswordRegister);
         btnRegister = findViewById(R.id.btnRegister);
 
+    }
+
+    // Método de validación de contraseña segura
+    private boolean isPasswordStrong(String password) {
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]).{8,}$";
+        return password.matches(regex);
     }
 }
 

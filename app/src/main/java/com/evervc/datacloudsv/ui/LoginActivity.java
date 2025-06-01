@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(LoginActivity.this, "Actualmente no tiene huellas registradas en su dispositivo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "No se realizó la autenticación biométrica.", Toast.LENGTH_SHORT).show();
             }
 
             @Override

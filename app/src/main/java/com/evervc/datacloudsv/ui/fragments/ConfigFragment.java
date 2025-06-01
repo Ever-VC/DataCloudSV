@@ -48,6 +48,7 @@ public class ConfigFragment extends Fragment {
     private MaterialCardView cvDeleteAllRegisters, cvExportCSVFile, cvImportCSVFile, cvChangePassword;
     private static final int CREATE_CSV_FILE_REQUEST_CODE = 1001;
     private static final int IMPORT_CSV_FILE_REQUEST_CODE = 2001;
+    private boolean isEmpty = false;
 
     public ConfigFragment() {
         // Required empty public constructor
@@ -86,7 +87,17 @@ public class ConfigFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Exporta los registros y la clave maestra a un CSV
-                exportToCSVFile();
+                ExecutorService executorService = Executors.newSingleThreadExecutor();
+                Handler handler = new Handler(Looper.getMainLooper());
+                executorService.execute(() -> {
+                    AccountRegistersDB db = AccountRegistersDB.getInstance(getContext());
+                    List<AccountRegister> registros = db.accountRegisterDAO().getAllAccountRegisters();
+                    if (registros.isEmpty()) {
+                        handler.post(() -> Toast.makeText(getContext(), "No hay ningún registro para exportar", Toast.LENGTH_SHORT).show());
+                    } else {
+                        exportToCSVFile();
+                    }
+                });
             }
         });
 

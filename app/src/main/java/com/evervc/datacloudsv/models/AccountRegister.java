@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -55,6 +56,9 @@ public class AccountRegister {
         this.modifiedAt = modifiedAt;
         this.saltBase64 = saltBase64;
         this.ivBase64 = ivBase64;
+    }
+
+    public AccountRegister() {
     }
 
     public int getId() {

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#fbfbfb">
+    android:background="@color/white">
 
 
     <ScrollView
@@ -18,24 +18,34 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        android:background="#fbfbfb"
+        android:background="@color/white"
         app:layout_constraintVertical_bias="1.0">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            android:background="#fbfbfb"
+            android:background="@color/white"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:textSize="22dp"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold"
+                android:text="BIENVENIDO A DATA CLOUD SV" />
 
             <!-- Título -->
-
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/gifImageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="30dp"
                 android:src="@drawable/login_anim"
                 android:layout_gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,9 +55,9 @@
 
             <TextView
                 android:text="Iniciar sesión"
-                android:textSize="28sp"
+                android:textSize="20dp"
                 android:textStyle="bold"
-                android:textColor="#3F51B5"
+                android:textColor="@color/dark_red"
                 android:layout_marginBottom="32dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
@@ -59,18 +69,27 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/blue"
-                android:textStyle="bold"
+                android:textColor="@color/light_blue"
+                android:textStyle="italic"
                 android:gravity="center"
                 android:layout_margin="10dp"
-                android:text="Ingrese la contraseña maestra para acceder a la app" />
+                android:text="Para iniciar sesión, ingrese su contraseña maestra o seleccione el método de autenticación biométrica" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:boxStrokeColor="#3F51B5"
-                app:boxBackgroundMode="outline">
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                app:passwordToggleEnabled="true"
+                app:boxStrokeColor="@color/dark_blue"
+                app:hintTextColor="@color/dark_blue"
+                app:cursorColor="@color/dark_blue"
+                app:counterTextColor="@color/black"
+                android:textColorHint="@color/gray"
+                app:passwordToggleTint="@color/gray"
+                app:startIconDrawable="@drawable/password"
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPasswordLogin"
@@ -78,8 +97,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Contraseña"
                     android:inputType="textPassword"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/light_gray" />
+                    android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Botón: Iniciar sesión -->
@@ -98,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:text="Autenticación biométrica"
                 android:textColor="@color/white"
-                android:backgroundTint="@color/green"
+                android:backgroundTint="@color/black"
                 android:layout_marginBottom="20dp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

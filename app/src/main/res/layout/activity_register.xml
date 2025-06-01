@@ -2,103 +2,179 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
-            <!-- Gif / Logo -->
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/gifImageView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/register_anim"
-                android:layout_gravity="center" />
-
-            <!-- Título -->
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Crear contraseña maestra"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:textColor="#3F51B5"
-                android:layout_marginBottom="32dp" />
+                android:background="@color/light_blue">
 
-            <!-- Advertencia -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textColor="@color/red"
-                android:textStyle="bold"
-                android:text="IMPORTANTE: Esta contraseña protege todas tus demás contraseñas. No se puede recuperar si la olvidas. Guárdala en un lugar seguro." />
-
-            <!-- Contraseña -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:boxStrokeColor="#3F51B5"
-                app:boxBackgroundMode="outline">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPasswordRegister"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contraseña"
-                    android:inputType="textPassword"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/light_gray" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:fitsSystemWindows="true"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-            <!-- Confirmar contraseña -->
-            <com.google.android.material.textfield.TextInputLayout
+                    <!-- Título -->
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="9dp"
+                        android:gravity="left"
+                        android:text="Data Cloud SV"
+                        android:textColor="@color/white"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvSubTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="9dp"
+                        android:text="Seguridad y tecnología en la palma de tumano"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+                    <!-- Gif / Logo -->
+                    <pl.droidsonroids.gif.GifImageView
+                        android:id="@+id/gifImageView"
+                        android:layout_width="93dp"
+                        android:layout_height="108dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/register_anim"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvSubTitle" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:boxStrokeColor="#3F51B5"
-                app:boxBackgroundMode="outline">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:padding="30dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etConfirmPasswordRegister"
+                <TextView
+                    android:id="@+id/tvLocationApp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:text="Registro de contraseña maestra"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <!-- Advertencia -->
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirmar contraseña"
-                    android:inputType="textPassword"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/light_gray" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="20dp"
+                    android:text="IMPORTANTE: Esta contraseña protege todas tus demás contraseñas. No se puede recuperar si la olvidas. Guárdala en un lugar seguro."
+                    android:textColor="@color/red"
+                    android:textStyle="bold" />
 
-            <!-- Botón -->
-            <Button
-                android:id="@+id/btnRegister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Registrar"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#3F51B5"
-                android:layout_marginBottom="16dp" />
+                <!-- Contraseña -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20"
+                    app:cursorColor="@color/dark_blue"
+                    app:counterTextColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    app:passwordToggleTint="@color/gray"
+                    app:startIconDrawable="@drawable/password"
+                    app:startIconTint="@color/blue"
+                    app:passwordToggleEnabled="true">
+                    <!-- Password input -->
+                    <EditText
+                        android:id="@+id/etPasswordRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:hint="@string/etPassword"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Confirmar contraseña -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20"
+                    app:cursorColor="@color/dark_blue"
+                    app:counterTextColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    app:passwordToggleTint="@color/gray"
+                    app:startIconDrawable="@drawable/password"
+                    app:startIconTint="@color/blue"
+                    android:layout_marginBottom="40dp"
+                    app:passwordToggleEnabled="true">
+                    <!-- Password input -->
+                    <EditText
+                        android:id="@+id/etConfirmPasswordRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:hint="@string/etConfirmPassword"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Botón -->
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#3F51B5"
+                    android:text="Registrar"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>

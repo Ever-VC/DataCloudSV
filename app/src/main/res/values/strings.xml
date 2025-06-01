@@ -10,6 +10,7 @@
     <string name="etAcount">Correo</string>
     <string name="etUsername">Nombre de usuario *</string>
     <string name="etPassword">Contraseña *</string>
+    <string name="etConfirmPassword">Confirma tu contraseña *</string>
     <string name="etWebSite">Sitio web</string>
     <string name="etNote">Nota</string>
 
